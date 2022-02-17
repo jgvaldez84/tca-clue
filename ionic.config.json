@@ -1,0 +1,7 @@
+{
+  "name": "tca-clue",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
