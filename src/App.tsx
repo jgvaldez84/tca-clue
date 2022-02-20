@@ -1,7 +1,18 @@
+/* eslint-disable no-lone-blocks */
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import {
+  IonApp,
+  IonContent,
+  IonHeader,
+  IonImg,
+  IonRouterOutlet,
+  IonTitle,
+  IonToolbar,
+  setupIonicReact,
+} from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
+import clue from './clue.jpeg';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -26,17 +37,28 @@ setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
+    <IonHeader>
+      <IonToolbar color='primary'>
+        <IonTitle className='ion-text-center'>
+          The Companion app for Clue
+        </IonTitle>
+      </IonToolbar>
+    </IonHeader>
+    <IonContent>
+      <IonImg src={clue} className='app-logo' alt='logo'></IonImg>
+    </IonContent>
   </IonApp>
 );
-
+{
+  /* <IonReactRouter>
+<IonRouterOutlet>
+  <Route exact path='/home'>
+    <Home />
+  </Route>
+  <Route exact path='/'>
+    <Redirect to='/home' />
+  </Route>
+</IonRouterOutlet>
+</IonReactRouter> */
+}
 export default App;
