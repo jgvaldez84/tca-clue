@@ -1,5 +1,5 @@
 /* eslint-disable no-lone-blocks */
-import { Link, Redirect, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import {
   IonApp,
   IonButton,
@@ -17,10 +17,12 @@ import {
   IonTitle,
   IonToolbar,
   setupIonicReact,
+  IonTabs,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import clue from './clue.jpeg';
+import GameBoard from './components/GameBoard';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -44,9 +46,6 @@ import './theme/variables.css';
 setupIonicReact();
 
 const App: React.FC = () => {
-  const redirect = () => {
-    <Link to='src/components/GameBoard.tsx' />;
-  };
   return (
     <IonApp>
       <IonHeader>
@@ -69,14 +68,19 @@ const App: React.FC = () => {
         <IonGrid>
           <IonRow>
             <IonCol>
-              <IonButton
-                expand='block'
-                className='ion-text-center'
-                color='secondary'
-                onClick={redirect}
-              >
-                Start New Game
-              </IonButton>
+              <IonReactRouter>
+                <IonRouterOutlet>
+                  <Route path='src/components/GameBoard.tsx' exact />
+                </IonRouterOutlet>
+                <IonButton
+                  expand='block'
+                  className='ion-text-center'
+                  color='secondary'
+                  href='src/components/GameBoard.tsx'
+                >
+                  Start New Game
+                </IonButton>
+              </IonReactRouter>
             </IonCol>
           </IonRow>
         </IonGrid>
@@ -88,8 +92,8 @@ const App: React.FC = () => {
   /*
     <IonReactRouter>
 <IonRouterOutlet>
-  <Route exact path='/home'>
-    <Home />
+  <Route exact path='src/components/GameBoard.tsx'>
+    <GameBoard />
   </Route>
   <Route exact path='/'>
     <Redirect to='/home' />
