@@ -2,6 +2,10 @@
 import { Redirect, Route } from 'react-router-dom';
 import {
   IonApp,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
   IonContent,
   IonHeader,
   IonImg,
@@ -44,8 +48,18 @@ const App: React.FC = () => (
         </IonTitle>
       </IonToolbar>
     </IonHeader>
-    <IonContent>
-      <IonImg src={clue} className='app-logo' alt='logo'></IonImg>
+    <IonContent color='dark'>
+      <IonImg src={clue} className='ion-padding' alt='logo'></IonImg>
+      <IonCard>
+        <IonCardHeader>
+          <IonCardTitle className='ion-text-center'>Your Stats:</IonCardTitle>
+        </IonCardHeader>
+        <IonCardContent>
+          Wins: 0<br></br>
+          Losses: 0<br></br>
+          Incorrect Guesses: 0<br></br>
+        </IonCardContent>
+      </IonCard>
     </IonContent>
   </IonApp>
 );
