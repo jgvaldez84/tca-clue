@@ -16,7 +16,7 @@ import {
 } from '@ionic/react';
 import React from 'react';
 
-const GameBoard: React.FC = () => {
+const PlayGame: React.FC = () => {
   return (
     <IonApp>
       <IonHeader>
@@ -136,4 +136,4 @@ const GameBoard: React.FC = () => {
   );
 };
 
-export default GameBoard;
+export default PlayGame;
