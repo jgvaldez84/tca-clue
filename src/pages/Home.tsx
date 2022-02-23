@@ -41,6 +41,21 @@ const Home: React.FC = () => {
           <IonRow>
             <IonCol>
               <IonButton
+                routerLink='players'
+                expand='block'
+                className='ion-text-center'
+                color='secondary'
+              >
+                Players
+              </IonButton>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+        <IonGrid>
+          <IonRow>
+            <IonCol>
+              <IonButton
+                routerLink='play'
                 expand='block'
                 className='ion-text-center'
                 color='secondary'

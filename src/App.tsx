@@ -22,7 +22,8 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-import PlayGame from './pages/PlayGame';
+import GameBoard from './pages/GameBoard';
+import Players from './pages/Players';
 
 setupIonicReact();
 
@@ -30,9 +31,14 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path='/play'>
-          <PlayGame />
+        <Route exact path='/players'>
+          <Players />
         </Route>
+
+        <Route exact path='/play'>
+          <GameBoard />
+        </Route>
+
         <Route exact path='/home'>
           <Home />
         </Route>

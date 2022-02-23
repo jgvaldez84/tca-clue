@@ -7,8 +7,6 @@ import {
   IonHeader,
   IonItem,
   IonLabel,
-  IonList,
-  IonListHeader,
   IonCardHeader,
   IonTitle,
   IonToolbar,
@@ -16,7 +14,7 @@ import {
 } from '@ionic/react';
 import React from 'react';
 
-const PlayGame: React.FC = () => {
+const Players: React.FC = () => {
   return (
     <IonApp>
       <IonHeader>
@@ -136,4 +134,4 @@ const PlayGame: React.FC = () => {
   );
 };
 
-export default PlayGame;
+export default Players;
