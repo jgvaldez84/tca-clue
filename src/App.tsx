@@ -30,13 +30,12 @@ setupIonicReact();
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
+      <Route exact path='/play'>
+        <GameBoard />
+      </Route>
       <IonRouterOutlet>
         <Route exact path='/players'>
           <Players />
-        </Route>
-
-        <Route exact path='/play'>
-          <GameBoard />
         </Route>
 
         <Route exact path='/home'>

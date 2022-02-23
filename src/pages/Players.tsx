@@ -1,136 +1,91 @@
+import React, { useState } from 'react';
 import {
-  IonApp,
-  IonCard,
-  IonCardSubtitle,
-  IonCheckbox,
   IonContent,
   IonHeader,
-  IonItem,
-  IonLabel,
-  IonCardHeader,
+  IonPage,
   IonTitle,
   IonToolbar,
+  IonCheckbox,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonItemDivider,
   IonButton,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from '@ionic/react';
-import React from 'react';
+
+interface player {
+  name: string; // "2022-02-14T18:49:30"
+  order: number; // "2022-02-14T18:59:30"
+}
+const players: player[] = [
+  {
+    name: 'Jose',
+    order: 1,
+  },
+  {
+    name: 'Colleen',
+    order: 2,
+  },
+  {
+    name: 'Kenny',
+    order: 3,
+  },
+];
+
+console.log(players);
 
 const Players: React.FC = () => {
+  const PlayersDisplay = players.map((x) => x.name);
+  console.log(PlayersDisplay);
+
   return (
-    <IonApp>
+    <IonPage>
       <IonHeader>
-        <IonToolbar color='tertiary'>
-          <IonTitle>Game Board</IonTitle>
+        <IonToolbar>
+          <IonTitle>Choose your Players</IonTitle>
         </IonToolbar>
       </IonHeader>
-
       <IonContent>
-        <IonCard color='light'>
-          <IonCardHeader>
-            <IonCardSubtitle>Characters</IonCardSubtitle>
-          </IonCardHeader>
-          <IonLabel>Mrs. White</IonLabel>
-          <IonCheckbox color='primary' slot='start'></IonCheckbox>
+        <IonList>
+          <IonItemDivider>This Game</IonItemDivider>
+          <IonItem>
+            <IonLabel>Me</IonLabel>
+            <IonCheckbox checked={true} slot='start' color='primary' />
+          </IonItem>
+          <IonItemDivider>Previous Players</IonItemDivider>
 
-          <IonItem>
-            <IonLabel>Mrs. Peacock</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Professor Plum</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Colonel Mustard</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Miss Scarlett</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Reverend Green</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Mr. Boddy</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-        </IonCard>
-        <IonCard color='medium'>
-          <IonCardHeader>
-            <IonCardSubtitle>Rooms</IonCardSubtitle>
-          </IonCardHeader>
-          <IonItem>
-            <IonLabel>Ball Room</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Billiard Room</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Conservatory</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Dining Room</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Hall</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Kitchen</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Lounge</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Library</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Study</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-        </IonCard>
-        <IonCard color='dark'>
-          <IonCardHeader>
-            <IonCardSubtitle>Weapons</IonCardSubtitle>
-          </IonCardHeader>
-          <IonItem>
-            <IonLabel>Knife</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Revolver</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Rope</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Wrench</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Candlestick</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Lead Pipe</IonLabel>
-            <IonCheckbox color='primary' slot='start'></IonCheckbox>
-          </IonItem>
-        </IonCard>
-        <IonButton id='guess' expand='block' color='primary'>
-          Guess
+          {players.map(({ name }, i) => (
+            <IonItem key={i}>
+              <IonLabel>{name}</IonLabel>
+              <IonCheckbox slot='start' value={name} />
+            </IonItem>
+          ))}
+        </IonList>
+        <IonGrid>
+          <IonRow>
+            <IonButton>Add Checked Players</IonButton>
+            <IonButton>Delete Checked Player</IonButton>
+          </IonRow>
+          <IonCol>
+            <IonButton expand='block' color='secondary'>
+              Add New Players
+            </IonButton>
+          </IonCol>
+        </IonGrid>
+
+        <IonButton
+          routerLink='play'
+          expand='block'
+          className='ion-text-center'
+          color='tertiary'
+        >
+          Go To Check-off
         </IonButton>
       </IonContent>
-    </IonApp>
+    </IonPage>
   );
 };
 
