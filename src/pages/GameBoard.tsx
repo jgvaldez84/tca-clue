@@ -11,8 +11,11 @@ import {
   IonTitle,
   IonToolbar,
   IonButton,
+  IonModal,
 } from '@ionic/react';
 import React from 'react';
+import Body from './Modal';
+import ModalExample from './Modal';
 
 const GameBoard: React.FC = () => {
   return (
@@ -28,9 +31,10 @@ const GameBoard: React.FC = () => {
           <IonCardHeader>
             <IonCardSubtitle>Characters</IonCardSubtitle>
           </IonCardHeader>
-          <IonLabel>Mrs. White</IonLabel>
-          <IonCheckbox color='primary' slot='start'></IonCheckbox>
-
+          <IonItem>
+            <IonLabel>Mrs. White</IonLabel>
+            <IonCheckbox color='primary' slot='start'></IonCheckbox>
+          </IonItem>
           <IonItem>
             <IonLabel>Mrs. Peacock</IonLabel>
             <IonCheckbox color='primary' slot='start'></IonCheckbox>
@@ -97,6 +101,7 @@ const GameBoard: React.FC = () => {
             <IonCheckbox color='primary' slot='start'></IonCheckbox>
           </IonItem>
         </IonCard>
+
         <IonCard color='dark'>
           <IonCardHeader>
             <IonCardSubtitle>Weapons</IonCardSubtitle>
@@ -126,6 +131,7 @@ const GameBoard: React.FC = () => {
             <IonCheckbox color='primary' slot='start'></IonCheckbox>
           </IonItem>
         </IonCard>
+        <IonModal>Guess</IonModal>
         <IonButton id='guess' expand='block' color='primary'>
           Guess
         </IonButton>

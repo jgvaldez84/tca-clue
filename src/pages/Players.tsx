@@ -14,11 +14,12 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonApp,
 } from '@ionic/react';
 
 interface player {
-  name: string; // "2022-02-14T18:49:30"
-  order: number; // "2022-02-14T18:59:30"
+  name: string;
+  order: number;
 }
 const players: player[] = [
   {
@@ -43,48 +44,53 @@ const Players: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Choose your Players</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-        <IonList>
-          <IonItemDivider>This Game</IonItemDivider>
-          <IonItem>
-            <IonLabel>Me</IonLabel>
-            <IonCheckbox checked={true} slot='start' color='primary' />
-          </IonItem>
-          <IonItemDivider>Previous Players</IonItemDivider>
-
-          {players.map(({ name }, i) => (
-            <IonItem key={i}>
-              <IonLabel>{name}</IonLabel>
-              <IonCheckbox slot='start' value={name} />
+      <IonApp>
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>Choose your Players</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <IonList>
+            <IonItemDivider>This Game</IonItemDivider>
+            <IonItem>
+              <IonLabel>Me</IonLabel>
+              <IonCheckbox checked={true} slot='start' color='primary' />
             </IonItem>
-          ))}
-        </IonList>
-        <IonGrid>
-          <IonRow>
-            <IonButton>Add Checked Players</IonButton>
-            <IonButton>Delete Checked Player</IonButton>
-          </IonRow>
-          <IonCol>
+            <IonItemDivider>Previous Players</IonItemDivider>
+
+            {players.map(({ name }, i) => (
+              <IonItem key={i}>
+                <IonLabel>{name}</IonLabel>
+                <IonCheckbox slot='start' value={name} />
+              </IonItem>
+            ))}
+          </IonList>
+          <IonGrid>
+            <IonRow>
+              <IonCol size='6'>
+                <IonButton fill='outline'>Add To Game</IonButton>
+              </IonCol>
+              <IonCol size='6'>
+                <IonButton fill='outline'>Delete Player</IonButton>
+              </IonCol>
+            </IonRow>
+
             <IonButton expand='block' color='secondary'>
               Add New Players
             </IonButton>
-          </IonCol>
-        </IonGrid>
+          </IonGrid>
 
-        <IonButton
-          routerLink='play'
-          expand='block'
-          className='ion-text-center'
-          color='tertiary'
-        >
-          Go To Check-off
-        </IonButton>
-      </IonContent>
+          <IonButton
+            routerLink='play'
+            expand='block'
+            className='ion-text-center'
+            color='tertiary'
+          >
+            Go To Check-off
+          </IonButton>
+        </IonContent>
+      </IonApp>
     </IonPage>
   );
 };
