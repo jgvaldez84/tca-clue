@@ -5,9 +5,30 @@ const NewModal: React.FC = () => {
     <IonPage>
       <IonApp>
         <IonContent>
-          <IonButton expand='block'>Correct!</IonButton>
-          <IonButton expand='block'>Wrong!</IonButton>
-          <IonButton expand='block'>Quit Game</IonButton>
+          <IonButton
+            routerLink='home'
+            expand='block'
+            className='ion-text-center'
+            color='secondary'
+          >
+            Correct!
+          </IonButton>
+          <IonButton
+            expand='block'
+            routerLink='play'
+            className='ion-text-center'
+            color='secondary'
+          >
+            Wrong!
+          </IonButton>
+          <IonButton
+            routerLink='home'
+            expand='block'
+            className='ion-text-center'
+            color='secondary'
+          >
+            Quit Game
+          </IonButton>
           <IonButton>Close</IonButton>
         </IonContent>
       </IonApp>
