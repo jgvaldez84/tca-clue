@@ -29,7 +29,7 @@ const Home: React.FC = () => {
             </IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent color='dark'>
+        <IonContent>
           <IonImg src={clue} className='ion-padding' alt='logo'></IonImg>
           <IonCard>
             <IonCardHeader>
