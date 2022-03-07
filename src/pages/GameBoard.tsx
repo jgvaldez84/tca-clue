@@ -167,6 +167,10 @@ const GameBoard: React.FC = () => {
                   >
                     Guess &rarr;
                   </IonButton>
+                  \
+                  <IonButton routerLink='Home' expand='block'>
+                    Back to Home
+                  </IonButton>
                 </IonCardContent>
               </IonCard>
             </IonCol>

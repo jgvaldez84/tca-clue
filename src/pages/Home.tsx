@@ -17,8 +17,13 @@ import {
 } from '@ionic/react';
 
 import clue from '../components/clue.jpeg';
+import { gameResult } from '../App';
 
-const Home: React.FC = () => {
+interface HomeProps {
+  gameResults: gameResult[];
+}
+
+const Home: React.FC<HomeProps> = ({ gameResults }) => {
   return (
     <IonPage>
       <IonApp>
@@ -38,6 +43,8 @@ const Home: React.FC = () => {
               </IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
+              Games Played: {gameResults.length}
+              <br></br>
               Wins: 0<br></br>
               Losses: 0<br></br>
               Incorrect Guesses: 0<br></br>
@@ -46,6 +53,14 @@ const Home: React.FC = () => {
           <IonGrid>
             <IonRow>
               <IonCol>
+                <IonButton
+                  routerLink='playground'
+                  expand='block'
+                  className='ion-text-center'
+                  color='secondary'
+                >
+                  playground
+                </IonButton>
                 <IonButton
                   routerLink='players'
                   expand='block'

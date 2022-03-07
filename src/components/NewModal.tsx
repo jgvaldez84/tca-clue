@@ -1,10 +1,11 @@
-import { IonApp, IonButton, IonContent, IonPage } from '@ionic/react';
+import { IonApp, IonButton, IonContent, IonNav, IonPage } from '@ionic/react';
 
 const NewModal: React.FC = () => {
   return (
     <IonPage>
       <IonApp>
         <IonContent>
+          <IonNav></IonNav>
           <IonButton
             routerLink='home'
             expand='block'
