@@ -1,10 +1,11 @@
-import { IonApp, IonButton, IonContent, IonPage } from '@ionic/react';
+import { IonApp, IonButton, IonContent, IonNav, IonPage } from '@ionic/react';
 
 const NewModal: React.FC = () => {
   return (
     <IonPage>
       <IonApp>
         <IonContent>
+          <IonNav></IonNav>
           <IonButton
             routerLink='home'
             expand='block'
@@ -22,13 +23,14 @@ const NewModal: React.FC = () => {
             Wrong!
           </IonButton>
           <IonButton
-            routerLink='play'
+            routerLink='home'
             expand='block'
             className='ion-text-center'
             color='secondary'
           >
             Quit Game
           </IonButton>
+          <IonButton>Close</IonButton>
         </IonContent>
       </IonApp>
     </IonPage>
