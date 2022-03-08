@@ -1,13 +1,19 @@
 import { IonApp, IonButton, IonContent, IonNav, IonPage } from '@ionic/react';
+import { useHistory } from 'react-router';
 
 const NewModal: React.FC = () => {
+  const history = useHistory();
+  const guessedRight = () => {
+    console.log('BOO');
+    history.push('/');
+  };
   return (
     <IonPage>
       <IonApp>
         <IonContent>
           <IonNav></IonNav>
           <IonButton
-            routerLink='home'
+            onClick={guessedRight}
             expand='block'
             className='ion-text-center'
             color='secondary'
@@ -30,7 +36,6 @@ const NewModal: React.FC = () => {
           >
             Quit Game
           </IonButton>
-          <IonButton>Close</IonButton>
         </IonContent>
       </IonApp>
     </IonPage>
