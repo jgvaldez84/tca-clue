@@ -1,12 +1,26 @@
 import { IonApp, IonButton, IonContent, IonNav, IonPage } from '@ionic/react';
-import { useHistory } from 'react-router';
 
-const NewModal: React.FC = () => {
-  const history = useHistory();
+interface NewModalProps {
+  dismiss: (path: string) => void;
+};
+
+const NewModal: React.FC<NewModalProps> = ({dismiss}) => {
+
   const guessedRight = () => {
     console.log('BOO');
-    history.push('/');
+    dismiss("/home");
   };
+
+  const guessedWrong = () => {
+    console.log('BOO2');
+    dismiss("/play");
+  };
+
+  const quitGame = () => {
+    console.log('BOO3');
+    dismiss("/home");
+  };
+
   return (
     <IonPage>
       <IonApp>
@@ -22,14 +36,14 @@ const NewModal: React.FC = () => {
           </IonButton>
           <IonButton
             expand='block'
-            routerLink='play'
+            onClick={guessedWrong}
             className='ion-text-center'
             color='secondary'
           >
             Wrong!
           </IonButton>
           <IonButton
-            routerLink='home'
+            onClick={quitGame}
             expand='block'
             className='ion-text-center'
             color='secondary'

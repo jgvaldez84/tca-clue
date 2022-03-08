@@ -19,13 +19,18 @@ import {
   IonPage,
 } from '@ionic/react';
 import React, { useRef } from 'react';
+import { useHistory } from 'react-router';
 import NewModal from '../components/NewModal';
 
 const GameBoard: React.FC = () => {
+
+  const history = useHistory();
+
   const pageRef = useRef();
 
-  const handleDismissModal = () => {
+  const handleDismissModal = (path: string) => {
     hideModal();
+    history.push(path);
   };
 
   const handleShowModal = () => {
@@ -33,9 +38,12 @@ const GameBoard: React.FC = () => {
       presentingElement: pageRef.current,
     });
   };
-  const [showModal, hideModal] = useIonModal(NewModal, {
-    dismiss: handleDismissModal,
-  });
+  const [showModal, hideModal] = useIonModal(
+    NewModal
+    , {
+      dismiss: handleDismissModal,
+    }
+  );
   return (
     <IonPage ref={pageRef}>
       <IonApp>
