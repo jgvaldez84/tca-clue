@@ -2,23 +2,27 @@ import { IonApp, IonButton, IonContent, IonNav, IonPage } from '@ionic/react';
 
 interface NewModalProps {
   dismiss: (path: string) => void;
-};
+}
 
-const NewModal: React.FC<NewModalProps> = ({dismiss}) => {
-
+const NewModal: React.FC<NewModalProps> = ({ dismiss }) => {
   const guessedRight = () => {
     console.log('BOO');
-    dismiss("/home");
+    dismiss('/home');
   };
 
   const guessedWrong = () => {
     console.log('BOO2');
-    dismiss("/play");
+    dismiss('/play');
   };
 
   const quitGame = () => {
     console.log('BOO3');
-    dismiss("/home");
+    dismiss('/home');
+  };
+
+  const close = () => {
+    console.log('BOO4');
+    dismiss('');
   };
 
   return (
@@ -49,6 +53,14 @@ const NewModal: React.FC<NewModalProps> = ({dismiss}) => {
             color='secondary'
           >
             Quit Game
+          </IonButton>
+          <IonButton
+            onClick={close}
+            expand='block'
+            className='ion-text-center'
+            color='secondary'
+          >
+            Close
           </IonButton>
         </IonContent>
       </IonApp>
