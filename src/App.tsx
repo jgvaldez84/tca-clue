@@ -74,9 +74,7 @@ const App: React.FC = () => {
   return (
     <IonApp>
       <IonReactHashRouter>
-        <Route exact path='/playground'>
-          <Playground addGameResult={addGameResult} />
-        </Route>
+        <Route exact path='/playground'></Route>
 
         <Route exact path='/play'>
           <GameBoard />
