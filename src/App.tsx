@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, setupIonicReact } from '@ionic/react';
+import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactHashRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -21,10 +21,8 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-
-import GameBoard from './pages/GameBoard';
-import Players from './pages/Players';
-import Playground from './pages/Playground';
+import SetupGame from './pages/SetupGame';
+import PlayGame from './pages/PlayGame';
 
 import { useState } from 'react';
 
@@ -42,54 +40,66 @@ export interface gameResult {
   players: player[];
 }
 
+export interface currentGame {
+  start: string;
+  players: player[];
+}
+
 const game1: gameResult = {
   start: '2022-02-14T18:55:00',
   end: '2022-02-14T19:00:00',
   winner: 'Me',
-  players: [
-    { name: 'Me', order: 1 },
-    { name: 'Jack', order: 2 },
-    { name: 'Taylor', order: 3 },
-  ],
+  players: [{ name: 'Me', order: 1 }],
 };
 
 const game2: gameResult = {
   start: '2022-02-14T19:05:00',
   end: '2022-02-14T19:35:00',
-  winner: 'Stephanie',
+  winner: 'Colleen',
   players: [
     { name: 'Me', order: 1 },
-    { name: 'Stephanie', order: 2 },
+    { name: 'Colleen', order: 2 },
   ],
 };
 
-const gameResults: gameResult[] = [game1, game2];
+let gameResults: gameResult[] = [game1, game2];
+
+const getUniquePlayers = (results: gameResult[]) => [
+  ...new Set(results.flatMap((x) => x.players.map((y) => y.name))),
+];
 
 const App: React.FC = () => {
-  const [results, setResults] = useState(gameResults);
+  // App state as useState() until it gets unmanageable...
+  const [results, setResults] = useState<gameResult[]>(gameResults);
+  const [currentGame, setCurrentGame] = useState<currentGame>({
+    start: '',
+    players: [],
+  });
 
   const addGameResult = (singleGameResult: gameResult) => {
     setResults([...results, singleGameResult]);
   };
+
   return (
     <IonApp>
       <IonReactHashRouter>
-        <Route exact path='/playground'></Route>
-
-        <Route exact path='/play'>
-          <GameBoard />
-        </Route>
-
-        <Route exact path='/players'>
-          <Players />
-        </Route>
-
-        <Route exact path='/home'>
-          <Home gameResults={results} />
-        </Route>
-        <Route exact path='/'>
-          <Redirect to='/home' />
-        </Route>
+        <IonRouterOutlet>
+          <Route exact path='/play'>
+            <PlayGame currentGame={currentGame} />
+          </Route>
+          <Route exact path='/setup'>
+            <SetupGame
+              uniquePlayers={getUniquePlayers(results)}
+              setCurrentGame={setCurrentGame}
+            />
+          </Route>
+          <Route exact path='/home'>
+            <Home gameResults={results} />
+          </Route>
+          <Route exact path='/'>
+            <Redirect to='/home' />
+          </Route>
+        </IonRouterOutlet>
       </IonReactHashRouter>
     </IonApp>
   );

@@ -1,21 +1,20 @@
 import {
-  IonApp,
-  IonButton,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonCol,
   IonContent,
-  IonGrid,
-  IonRow,
   IonHeader,
-  IonImg,
+  IonPage,
   IonTitle,
   IonToolbar,
-  IonPage,
+  IonButton,
+  IonImg,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonText,
+  IonApp,
 } from '@ionic/react';
 
+import './Home.css';
 import clue from '../components/clue.jpeg';
 import { gameResult } from '../App';
 
@@ -23,19 +22,39 @@ interface HomeProps {
   gameResults: gameResult[];
 }
 
+const calculateWinningPercentage = (results: gameResult[], who: string) =>
+  results.filter((x) => x.winner === who).length /
+  results.filter(
+    (x) => x.winner !== '~~None~~' && x.players.some((y) => y.name === who)
+  ).length;
+
+const calculateShortestGame = (r: gameResult[]) =>
+  Math.min(...r.map((x) => Date.parse(x.end) - Date.parse(x.start)));
+
 const Home: React.FC<HomeProps> = ({ gameResults }) => {
+  const suzziesWinningPercentage = !isNaN(
+    calculateWinningPercentage(gameResults, 'Suzzie')
+  )
+    ? calculateWinningPercentage(gameResults, 'Suzzie')
+    : 0;
+
   return (
     <IonPage>
       <IonApp>
         <IonHeader>
           <IonToolbar color='primary'>
             <IonTitle className='ion-text-center'>
-              The Companion app for
+              The Companion App for
             </IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent>
-          <IonImg src={clue} className='ion-padding' alt='logo'></IonImg>
+        <IonContent fullscreen>
+          <IonImg src={clue} className='ion-padding' alt='clue logo'></IonImg>
+          <IonHeader collapse='condense'>
+            <IonToolbar>
+              <IonTitle size='large'>Clue</IonTitle>
+            </IonToolbar>
+          </IonHeader>
           <IonCard>
             <IonCardHeader>
               <IonCardTitle className='ion-text-center'>
@@ -43,49 +62,42 @@ const Home: React.FC<HomeProps> = ({ gameResults }) => {
               </IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-              Games Played: {gameResults.length}
-              <br></br>
-              Wins: 0<br></br>
-              Losses: 0<br></br>
-              Incorrect Guesses: 0<br></br>
+              <IonText>
+                <p>Total Games Played: {gameResults.length}</p>
+              </IonText>
+
+              <IonText>
+                <p>
+                  My Winning %: {calculateWinningPercentage(gameResults, 'Me')}%
+                </p>
+              </IonText>
+              <IonText>
+                <p>
+                  Shortest Game (min):
+                  {calculateShortestGame(gameResults) / 1000 / 60}
+                </p>
+              </IonText>
             </IonCardContent>
           </IonCard>
-          <IonGrid>
-            <IonRow>
-              <IonCol>
-                <IonButton
-                  routerLink='playground'
-                  expand='block'
-                  className='ion-text-center'
-                  color='secondary'
-                >
-                  playground
-                </IonButton>
-                <IonButton
-                  routerLink='players'
-                  expand='block'
-                  className='ion-text-center'
-                  color='secondary'
-                >
-                  Players
-                </IonButton>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-          <IonGrid>
-            <IonRow>
-              <IonCol>
-                <IonButton
-                  routerLink='play'
-                  expand='block'
-                  className='ion-text-center'
-                  color='secondary'
-                >
-                  Start New Game
-                </IonButton>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
+          <IonCard>
+            <IonButton
+              expand='block'
+              className='ion-text-center'
+              color='secondary'
+              routerLink='/setup'
+            >
+              Setup New Game
+            </IonButton>
+            <br></br>
+            <IonButton
+              expand='block'
+              className='ion-text-center'
+              color='secondary'
+              routerLink='/setup'
+            >
+              Go To Gameboard
+            </IonButton>
+          </IonCard>
         </IonContent>
       </IonApp>
     </IonPage>

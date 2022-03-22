@@ -1,59 +1,52 @@
 import {
-  IonApp,
-  IonCard,
-  IonCardSubtitle,
-  IonCheckbox,
   IonContent,
   IonHeader,
-  IonItem,
-  IonLabel,
-  IonCardHeader,
+  IonPage,
   IonTitle,
   IonToolbar,
   IonButton,
-  IonRow,
-  IonCol,
+  IonImg,
+  IonApp,
+  IonCard,
   IonCardContent,
+  IonLabel,
+  IonCheckbox,
+  IonCardHeader,
+  IonCardSubtitle,
   IonCardTitle,
-  useIonModal,
-  IonPage,
+  IonRow,
+  IonGrid,
+  IonCol,
+  IonItem,
 } from '@ionic/react';
-import React, { useRef } from 'react';
-import { useHistory } from 'react-router';
-import NewModal from '../components/NewModal';
+import { currentGame, gameResult } from '../App';
+import { useHistory } from 'react-router-dom';
+import clue from '../components/clue.jpeg';
+interface PlayGameProps {
+  // addGameResult: (r: gameResult) => void;
+  currentGame: currentGame;
+}
 
-const GameBoard: React.FC = () => {
-
+const PlayGame: React.FC<PlayGameProps> = ({ currentGame }) => {
   const history = useHistory();
 
-  const pageRef = useRef();
+  // const endGame = () => {
 
-  const handleDismissModal = (path: string) => {
-    hideModal();
-    history.push(path);
-  };
+  //   // Navigate Home.
+  //   history.push('/');
+  // };
 
-  const handleShowModal = () => {
-    showModal({
-      presentingElement: pageRef.current,
-    });
-  };
-  const [showModal, hideModal] = useIonModal(
-    NewModal
-    , {
-      dismiss: handleDismissModal,
-    }
-  );
   return (
-    <IonPage ref={pageRef}>
+    <IonPage>
       <IonApp>
         <IonHeader>
-          <IonToolbar color='tertiary'>
-            <IonTitle>Game Board</IonTitle>
+          <IonToolbar color='primary'>
+            <IonTitle className='ion-text-center'>Make your Choices</IonTitle>
           </IonToolbar>
         </IonHeader>
+        <IonContent fullscreen>
+          <IonImg src={clue} className='ion-padding'></IonImg>
 
-        <IonContent>
           <IonCard color='light'>
             <IonCardHeader>
               <IonCardSubtitle>Characters</IonCardSubtitle>
@@ -171,7 +164,6 @@ const GameBoard: React.FC = () => {
                     id='guess'
                     expand='block'
                     color='primary'
-                    onClick={handleShowModal}
                   >
                     Guess &rarr;
                   </IonButton>
@@ -189,4 +181,4 @@ const GameBoard: React.FC = () => {
   );
 };
 
-export default GameBoard;
+export default PlayGame;
