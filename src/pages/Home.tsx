@@ -28,8 +28,8 @@ const calculateWinningPercentage = (results: gameResult[], who: string) =>
     (x) => x.winner !== '~~None~~' && x.players.some((y) => y.name === who)
   ).length;
 
-const calculateShortestGame = (r: gameResult[]) =>
-  Math.min(...r.map((x) => Date.parse(x.end) - Date.parse(x.start)));
+// const calculateShortestGame = (r: gameResult[]) =>
+//   Math.min(...r.map((x) => Date.parse(x.end) - Date.parse(x.start)));
 
 const Home: React.FC<HomeProps> = ({ gameResults }) => {
   const suzziesWinningPercentage = !isNaN(
@@ -68,13 +68,20 @@ const Home: React.FC<HomeProps> = ({ gameResults }) => {
 
               <IonText>
                 <p>
-                  My Winning %: {calculateWinningPercentage(gameResults, 'Me')}%
+                  My Winning percentage:{' '}
+                  {calculateWinningPercentage(gameResults, 'Me')}%
                 </p>
+              </IonText>
+
+              <IonText>
+                <p>Games Won:</p>
+              </IonText>
+              <IonText>
+                <p>Games Lost:{}</p>
               </IonText>
               <IonText>
                 <p>
-                  Shortest Game (min):
-                  {calculateShortestGame(gameResults) / 1000 / 60}
+                  Games Quit: {calculateWinningPercentage(gameResults, 'Me')}
                 </p>
               </IonText>
             </IonCardContent>
@@ -93,7 +100,7 @@ const Home: React.FC<HomeProps> = ({ gameResults }) => {
               expand='block'
               className='ion-text-center'
               color='secondary'
-              routerLink='/setup'
+              routerLink='/play'
             >
               Go To Gameboard
             </IonButton>

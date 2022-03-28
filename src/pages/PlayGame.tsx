@@ -15,29 +15,40 @@ import {
   IonCardSubtitle,
   IonCardTitle,
   IonRow,
-  IonGrid,
   IonCol,
   IonItem,
 } from '@ionic/react';
 import { currentGame, gameResult } from '../App';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import clue from '../components/clue.jpeg';
+import { useState, useRef } from 'react';
+import MyModal from '../components/Modal';
+
 interface PlayGameProps {
-  // addGameResult: (r: gameResult) => void;
+  addGameResult: (r: gameResult) => void;
   currentGame: currentGame;
 }
 
-const PlayGame: React.FC<PlayGameProps> = ({ currentGame }) => {
+const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
   const history = useHistory();
+  const [modal, setModal] = useState({ isOpen: false });
+  const pageRef = useRef();
 
-  // const endGame = () => {
+  const endGame = () => {
+    addGameResult({
+      winner: 'Me',
+      players: currentGame.players.map((x: any) => ({
+        name: x,
+        order: 0,
+      })),
+    });
 
-  //   // Navigate Home.
-  //   history.push('/');
-  // };
+    // Navigate Home.
+    history.push('/');
+  };
 
   return (
-    <IonPage>
+    <IonPage ref={pageRef}>
       <IonApp>
         <IonHeader>
           <IonToolbar color='primary'>
@@ -156,20 +167,31 @@ const PlayGame: React.FC<PlayGameProps> = ({ currentGame }) => {
               <IonCard>
                 <IonCardContent>
                   <IonCardTitle>Click to Guess</IonCardTitle>
+
                   <p>
                     Click the button below to make a guess or to quit your game
                   </p>
+                  <MyModal
+                    isOpen={modal.isOpen}
+                    onClose={() => setModal({ isOpen: false })}
+                    addGameResult={function (r: gameResult): void {}}
+                    currentGame={currentGame}
+                  />
                   <IonButton
-                    className='ion-margin-top'
-                    id='guess'
                     expand='block'
-                    color='primary'
+                    onClick={() => setModal({ isOpen: true })}
                   >
-                    Guess &rarr;
+                    Show Modal
                   </IonButton>
-
                   <IonButton routerLink='Home' expand='block'>
-                    Back to Home
+                    Back to Home &larr;
+                  </IonButton>
+                  <IonButton
+                    onClick={endGame}
+                    routerLink='/Home'
+                    expand='block'
+                  >
+                    Quit Game
                   </IonButton>
                 </IonCardContent>
               </IonCard>

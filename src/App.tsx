@@ -34,9 +34,8 @@ interface player {
 }
 
 export interface gameResult {
-  start: string; // "2022-02-14T18:49:30"
-  end: string; // "2022-02-14T18:59:30"
   winner: string; // "Me"
+  loser?: string; //'Kenny'
   players: player[];
 }
 
@@ -46,15 +45,12 @@ export interface currentGame {
 }
 
 const game1: gameResult = {
-  start: '2022-02-14T18:55:00',
-  end: '2022-02-14T19:00:00',
   winner: 'Me',
+
   players: [{ name: 'Me', order: 1 }],
 };
 
 const game2: gameResult = {
-  start: '2022-02-14T19:05:00',
-  end: '2022-02-14T19:35:00',
   winner: 'Colleen',
   players: [
     { name: 'Me', order: 1 },
@@ -69,7 +65,6 @@ const getUniquePlayers = (results: gameResult[]) => [
 ];
 
 const App: React.FC = () => {
-  // App state as useState() until it gets unmanageable...
   const [results, setResults] = useState<gameResult[]>(gameResults);
   const [currentGame, setCurrentGame] = useState<currentGame>({
     start: '',
@@ -84,8 +79,10 @@ const App: React.FC = () => {
     <IonApp>
       <IonReactHashRouter>
         <IonRouterOutlet>
+          {/* <Route exact path='/modal'
+          currentGame={currentGame} addGameResult={addGameResult} ></Route> */}
           <Route exact path='/play'>
-            <PlayGame currentGame={currentGame} />
+            <PlayGame currentGame={currentGame} addGameResult={addGameResult} />
           </Route>
           <Route exact path='/setup'>
             <SetupGame
