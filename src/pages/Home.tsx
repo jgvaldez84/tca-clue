@@ -42,8 +42,8 @@ const calculateLeaderBoard = (p: string[], r: gameResult[]) => {
       losses: gamesThisPlayerHasPlayed.length - gamesThisPlayerHasWon.length,
       winningPercentage:
         (
-          gamesThisPlayerHasWon.length / gamesThisPlayerHasPlayed.length
-        ).toFixed(2) + `%`,
+          gamesThisPlayerHasWon.length / gamesThisPlayerHasPlayed.length * 100
+        ).toFixed(1) + `%`,
     };
   });
 
