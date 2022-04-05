@@ -41,8 +41,9 @@ const calculateLeaderBoard = (p: string[], r: gameResult[]) => {
       losses: gamesThisPlayerHasPlayed.length - gamesThisPlayerHasWon.length,
       winningPercentage:
         (
-          gamesThisPlayerHasWon.length / gamesThisPlayerHasPlayed.length
-        ).toFixed(2) + `%`,
+          (gamesThisPlayerHasWon.length / gamesThisPlayerHasPlayed.length) *
+          100
+        ).toFixed(1) + `%`,
     };
   });
   return lb;
@@ -81,17 +82,25 @@ const MyModal: React.FC<ModalProps> = ({
               Total Games Played: {gameResults.length}
             </IonItem>
             <IonGrid>
+              <IonRow>
+                <IonCol>Name:</IonCol>
+                <IonCol>Wins:</IonCol>
+                <IonCol>Losses:</IonCol>
+                <IonCol>Winning Percentage:</IonCol>
+              </IonRow>
               {calculateLeaderBoard(uniquePlayers, gameResults)
                 .sort((a, b) =>
                   b.winningPercentage.localeCompare(a.winningPercentage)
                 )
                 .map((x) => (
-                  <IonRow>
-                    <IonCol>{x.name}</IonCol>
-                    <IonCol>{x.losses}</IonCol>
-                    <IonCol>{x.winningPercentage}</IonCol>
-                    <IonCol>{x.wins}</IonCol>
-                  </IonRow>
+                  <>
+                    <IonRow>
+                      <IonCol>{x.name}</IonCol>
+                      <IonCol>{x.wins}</IonCol>
+                      <IonCol>{x.losses}</IonCol>
+                      <IonCol>{x.winningPercentage}</IonCol>
+                    </IonRow>
+                  </>
                 ))}
             </IonGrid>
             <IonButton expand='block' onClick={onClose}>

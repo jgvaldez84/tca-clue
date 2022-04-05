@@ -16,6 +16,9 @@ import {
   IonList,
   IonActionSheet,
   AnimationBuilder,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from '@ionic/react';
 import { trash, share, caretForwardCircle, heart, close } from 'ionicons/icons';
 import { currentGame, gameResult } from '../App';
@@ -57,11 +60,7 @@ interface PlayGameProps {
   gameResults: gameResult[];
 }
 
-const PlayGame: React.FC<PlayGameProps> = ({
-  addGameResult,
-  currentGame,
-  gameResults,
-}) => {
+const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
   const [showActionSheet, setShowActionSheet] = useState(false);
 
   const history = useHistory();
@@ -101,11 +100,13 @@ const PlayGame: React.FC<PlayGameProps> = ({
           <IonCard>
             <IonCardHeader>Current Detectives:</IonCardHeader>
             {currentGame.players.map((x) => (
-              <IonList lines='none'>
-                <IonItem>
-                  <IonLabel key={x}>{x}</IonLabel>
-                </IonItem>
-              </IonList>
+              <IonGrid>
+                <IonList lines='none'>
+                  <IonItem>
+                    <IonLabel key={x}>{x}</IonLabel>
+                  </IonItem>
+                </IonList>
+              </IonGrid>
             ))}
           </IonCard>
 

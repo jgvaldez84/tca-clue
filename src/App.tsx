@@ -47,11 +47,8 @@ export interface currentGame {
 }
 
 const game1: gameResult = {
-  winner: 'Kenny',
-  players: [
-    { name: 'Me', order: 1 },
-    { name: 'Kenny', order: 2 },
-  ],
+  winner: '',
+  players: [{ name: 'Me', order: 1 }],
 };
 
 let gameResults: gameResult[] = [game1];
@@ -62,13 +59,8 @@ const addGameResult = (
 ): gameResult[] => [...results, result];
 
 gameResults = addGameResult(gameResults, {
-  winner: 'Colleen',
-  players: [
-    { name: 'Me', order: 1 },
-    { name: 'Kenny', order: 2 },
-    { name: 'Colleen', order: 3 },
-    { name: 'Tom', order: 4 },
-  ],
+  winner: '',
+  players: [{ name: 'Me', order: 1 }],
 });
 
 export const getUniquePlayers = (results: gameResult[]) => [

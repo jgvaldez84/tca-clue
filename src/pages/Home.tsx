@@ -52,7 +52,6 @@ const calculateLeaderBoard = (p: string[], r: gameResult[]) => {
 };
 
 const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
-  const [results, setResults] = useState<gameResult[]>(gameResults);
   const [modal, setModal] = useState({ isOpen: false });
   const lb = calculateLeaderBoard(uniquePlayers, gameResults);
 
@@ -94,48 +93,44 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
             </IonButton>
           </IonCard>
           <IonCard>
+            <IonCardHeader>
+              <IonCardTitle className='ion-text-center'>Winners</IonCardTitle>
+            </IonCardHeader>
+
+            <IonGrid>
+              <IonRow>
+                <IonCol>Name: </IonCol>
+                <IonCol> Wins:</IonCol>
+              </IonRow>
+              {calculateLeaderBoard(uniquePlayers, gameResults)
+                .filter((x) => x.wins)
+                .map((x) => (
+                  <IonRow>
+                    <IonCol>{x.name}</IonCol>
+                    <IonCol> {x.wins}</IonCol>
+                  </IonRow>
+                ))}
+            </IonGrid>
+          </IonCard>
+          <IonCard>
             <IonCardContent>
               <IonCardTitle className='ion-text-center'>
-                Game Stats
+                More Stats
               </IonCardTitle>
 
               <MyModal
                 isOpen={modal.isOpen}
                 onClose={() => setModal({ isOpen: false })}
-                gameResults={results}
-                uniquePlayers={getUniquePlayers(results)}
+                gameResults={gameResults}
+                uniquePlayers={getUniquePlayers(gameResults)}
               />
               <IonButton
                 expand='block'
                 onClick={() => setModal({ isOpen: true })}
               >
-                Show Stats
+                Game Stats
               </IonButton>
             </IonCardContent>
-          </IonCard>
-          <IonCard>
-            <IonCardHeader>
-              <IonCardTitle className='ion-text-center'>
-                Game Stats
-              </IonCardTitle>
-            </IonCardHeader>
-
-            <h3>Total Games Played: {gameResults.length}</h3>
-
-            <IonGrid>
-              {calculateLeaderBoard(uniquePlayers, gameResults)
-                .sort((a, b) =>
-                  b.winningPercentage.localeCompare(a.winningPercentage)
-                )
-                .map((x) => (
-                  <IonRow>
-                    <IonCol>{x.name}</IonCol>
-                    <IonCol>{x.wins}</IonCol>
-                    <IonCol>{x.losses}</IonCol>
-                    <IonCol>{x.winningPercentage}</IonCol>
-                  </IonRow>
-                ))}
-            </IonGrid>
           </IonCard>
         </IonContent>
       </IonApp>

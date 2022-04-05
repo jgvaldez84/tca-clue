@@ -33,7 +33,7 @@ const SetupGame: React.FC<SetGameProps> = ({
 
   const checkedPlayers = uniquePlayers.map((x) => ({
     name: x,
-    checked: false,
+    checked: true,
   }));
   const [sortedPlayers, setSortedPlayers] = useState(checkedPlayers);
   const [newPlayerName, setNewPlayerName] = useState('');
