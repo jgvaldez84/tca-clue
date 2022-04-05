@@ -52,7 +52,6 @@ const calculateLeaderBoard = (p: string[], r: gameResult[]) => {
 };
 
 const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
-  const [results, setResults] = useState<gameResult[]>(gameResults);
   const [modal, setModal] = useState({ isOpen: false });
   const lb = calculateLeaderBoard(uniquePlayers, gameResults);
 
@@ -102,8 +101,8 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
               <MyModal
                 isOpen={modal.isOpen}
                 onClose={() => setModal({ isOpen: false })}
-                gameResults={results}
-                uniquePlayers={getUniquePlayers(results)}
+                gameResults={gameResults}
+                uniquePlayers={getUniquePlayers(gameResults)}
               />
               <IonButton
                 expand='block'
