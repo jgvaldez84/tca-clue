@@ -36,29 +36,48 @@ interface player {
 export interface gameResult {
   winner: string; // "Me"
   loser?: string; //'Kenny'
+  quit?: string; //'Colleen'
   players: player[];
 }
 
 export interface currentGame {
   start: string;
-  players: player[];
+  players: string[];
 }
 
 const game1: gameResult = {
-  winner: 'Me',
-
-  players: [{ name: 'Me', order: 1 }],
+  winner: 'Kenny',
+  players: [
+    { name: 'Me', order: 1 },
+    { name: 'Kenny', order: 2 },
+  ],
 };
 
 const game2: gameResult = {
-  winner: 'Colleen',
+  winner: 'Kenny',
+  loser: '',
   players: [
     { name: 'Me', order: 1 },
-    { name: 'Colleen', order: 2 },
+    { name: 'Kenny', order: 2 },
   ],
 };
 
 let gameResults: gameResult[] = [game1, game2];
+
+const addGameResult = (
+  results: gameResult[],
+  result: gameResult
+): gameResult[] => [...results, result];
+
+gameResults = addGameResult(gameResults, {
+  winner: 'Colleen',
+  players: [
+    { name: 'Me', order: 1 },
+    { name: 'Kenny', order: 2 },
+    { name: 'Colleen', order: 3 },
+    { name: 'Tom', order: 4 },
+  ],
+});
 
 const getUniquePlayers = (results: gameResult[]) => [
   ...new Set(results.flatMap((x) => x.players.map((y) => y.name))),
@@ -79,8 +98,7 @@ const App: React.FC = () => {
     <IonApp>
       <IonReactHashRouter>
         <IonRouterOutlet>
-          {/* <Route exact path='/modal'
-          currentGame={currentGame} addGameResult={addGameResult} ></Route> */}
+          <Route exact path='/guess'></Route>
           <Route exact path='/play'>
             <PlayGame currentGame={currentGame} addGameResult={addGameResult} />
           </Route>
@@ -91,7 +109,10 @@ const App: React.FC = () => {
             />
           </Route>
           <Route exact path='/home'>
-            <Home gameResults={results} />
+            <Home
+              gameResults={results}
+              uniquePlayers={getUniquePlayers(results)}
+            />
           </Route>
           <Route exact path='/'>
             <Redirect to='/home' />

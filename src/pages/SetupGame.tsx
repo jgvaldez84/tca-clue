@@ -31,38 +31,38 @@ const SetupGame: React.FC<SetGameProps> = ({
 }) => {
   const nav = useHistory();
 
-  const [sortedPlayers, setSortedPlayers] = useState(
-    [...uniquePlayers].sort().map((x) => ({ name: x, checked: false }))
-  );
+  const checkedPlayers = uniquePlayers.map((x) => ({
+    name: x,
+    checked: false,
+  }));
+
+  const [sortedPlayers, setSortedPlayers] = useState(checkedPlayers);
   const [newPlayerName, setNewPlayerName] = useState('');
 
-  const addNewPlayer = () => {
+  const togglePlayerChecked = (p: any) => {
     setSortedPlayers(
-      [
-        ...sortedPlayers,
-        {
-          name: newPlayerName,
-          checked: true,
-        },
-      ].sort((a, b) => a.name.localeCompare(b.name))
+      sortedPlayers.map((x) => ({
+        ...x,
+        checked: x === p ? !x.checked : x.checked,
+      }))
     );
-
-    // Clears the text box.
+  };
+  const addNewPlayer = () => {
+    //add the new player to available players, default to checked as we are likely playing with a new player.
+    setSortedPlayers([
+      ...sortedPlayers,
+      { name: newPlayerName, checked: true },
+    ]);
+    // clear out the input control.
     setNewPlayerName('');
   };
-
   const startGame = () => {
+    // Setup the payers and the start timestamp.
     setCurrentGame({
-      players: [
-        ...sortedPlayers
-          .filter((x) => x.checked)
-          .map((x, i) => ({
-            name: x.name,
-            order: i,
-          })),
-      ],
       start: new Date().toISOString(),
+      players: sortedPlayers.filter((x) => x.checked).map((x) => x.name),
     });
+    // Nav to the play screen.
     nav.push('/play');
   };
   console.log(sortedPlayers);
@@ -83,35 +83,30 @@ const SetupGame: React.FC<SetGameProps> = ({
               Choose Detectives
             </IonCardHeader>
             <IonCardContent>
-              <IonItem>
-                <IonLabel>Me</IonLabel>
-                <IonCheckbox checked slot='start'></IonCheckbox>
-              </IonItem>
-
+              <div>
+                <IonItem>
+                  <IonLabel position='floating'>Enter Detective Name</IonLabel>
+                  <IonInput
+                    value={newPlayerName}
+                    onIonChange={(e) =>
+                      setNewPlayerName((e.target as any).value)
+                    }
+                  ></IonInput>
+                </IonItem>
+                <IonButton expand='block' onClick={addNewPlayer}>
+                  Add
+                </IonButton>
+              </div>
               {sortedPlayers.map((x) => (
-                <IonItem key={x.name}>
+                <IonItem>
                   <IonLabel>{x.name}</IonLabel>
                   <IonCheckbox
                     slot='start'
-                    value={x.name}
                     checked={x.checked}
+                    onIonChange={(E) => togglePlayerChecked(x)}
                   />
                 </IonItem>
               ))}
-              <br></br>
-              <IonItem>
-                <input
-                  type='text'
-                  placeholder='enter name'
-                  value={newPlayerName}
-                  onChange={(e) => setNewPlayerName((e.target as any).value)}
-                />
-              </IonItem>
-              <br></br>
-
-              <IonButton color='warning' expand='full' onClick={addNewPlayer}>
-                Add
-              </IonButton>
             </IonCardContent>
           </IonCard>
           <IonCard>
