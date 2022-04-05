@@ -54,16 +54,7 @@ const game1: gameResult = {
   ],
 };
 
-const game2: gameResult = {
-  winner: 'Kenny',
-  loser: '',
-  players: [
-    { name: 'Me', order: 1 },
-    { name: 'Kenny', order: 2 },
-  ],
-};
-
-let gameResults: gameResult[] = [game1, game2];
+let gameResults: gameResult[] = [game1];
 
 const addGameResult = (
   results: gameResult[],

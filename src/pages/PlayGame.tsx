@@ -8,25 +8,20 @@ import {
   IonImg,
   IonApp,
   IonCard,
-  IonCardContent,
   IonLabel,
   IonCheckbox,
   IonCardHeader,
   IonCardSubtitle,
-  IonCardTitle,
-  IonRow,
-  IonCol,
   IonItem,
   IonList,
   IonActionSheet,
   AnimationBuilder,
 } from '@ionic/react';
 import { trash, share, caretForwardCircle, heart, close } from 'ionicons/icons';
-import { currentGame, gameResult, getUniquePlayers } from '../App';
+import { currentGame, gameResult } from '../App';
 import { useHistory } from 'react-router';
 import clue from '../components/clue.jpeg';
 import { useState, useRef } from 'react';
-import MyModal from '../components/Modal';
 
 import './Home.css';
 import { Mode, ActionSheetAttributes } from '@ionic/core';
@@ -68,9 +63,9 @@ const PlayGame: React.FC<PlayGameProps> = ({
   gameResults,
 }) => {
   const [showActionSheet, setShowActionSheet] = useState(false);
-  const [results, setResults] = useState<gameResult[]>(gameResults);
+
   const history = useHistory();
-  const [modal, setModal] = useState({ isOpen: false });
+
   const pageRef = useRef();
 
   const winningPlayer = currentGame.players.map((x) => (
@@ -93,15 +88,6 @@ const PlayGame: React.FC<PlayGameProps> = ({
     history.push('/');
   };
 
-  const quitGame = () => {
-    addGameResult({
-      winner: '~~None~~',
-      players: currentGame.players.map((x: any) => ({
-        name: x,
-        order: 0,
-      })),
-    });
-  };
   return (
     <IonPage ref={pageRef}>
       <IonApp>
@@ -129,31 +115,31 @@ const PlayGame: React.FC<PlayGameProps> = ({
             </IonCardHeader>
             <IonItem>
               <IonLabel>Mrs. White</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Mrs. Peacock</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Professor Plum</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Colonel Mustard</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Miss Scarlett</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Reverend Green</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Mr. Boddy</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
           </IonCard>
           <IonCard color='medium'>
@@ -162,39 +148,39 @@ const PlayGame: React.FC<PlayGameProps> = ({
             </IonCardHeader>
             <IonItem>
               <IonLabel>Ball Room</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Billiard Room</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Conservatory</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Dining Room</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Hall</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Kitchen</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Lounge</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Library</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Study</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
           </IonCard>
 
@@ -204,57 +190,29 @@ const PlayGame: React.FC<PlayGameProps> = ({
             </IonCardHeader>
             <IonItem>
               <IonLabel>Knife</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Revolver</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Rope</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Wrench</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Candlestick</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
               <IonLabel>Lead Pipe</IonLabel>
-              <IonCheckbox color='primary' slot='start'></IonCheckbox>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
           </IonCard>
-          <IonRow>
-            <IonCol size='12'>
-              <IonCard>
-                <IonCardContent>
-                  <IonCardTitle>Click to Guess</IonCardTitle>
-
-                  <p>
-                    Click the button below to make a guess or to quit your game
-                  </p>
-                  <MyModal
-                    isOpen={modal.isOpen}
-                    onClose={() => setModal({ isOpen: false })}
-                    gameResults={results}
-                    uniquePlayers={getUniquePlayers(results)}
-                  />
-                  <IonButton
-                    expand='block'
-                    onClick={() => setModal({ isOpen: true })}
-                  >
-                    Did you solve the crime?
-                  </IonButton>
-                  <IonButton routerLink='Home' expand='block'>
-                    Back to Home &larr;
-                  </IonButton>
-                </IonCardContent>
-              </IonCard>
-            </IonCol>
-          </IonRow>
 
           {winningPlayer}
 
