@@ -22,7 +22,7 @@ import {
   AnimationBuilder,
 } from '@ionic/react';
 import { trash, share, caretForwardCircle, heart, close } from 'ionicons/icons';
-import { currentGame, gameResult } from '../App';
+import { currentGame, gameResult, getUniquePlayers } from '../App';
 import { useHistory } from 'react-router';
 import clue from '../components/clue.jpeg';
 import { useState, useRef } from 'react';
@@ -59,11 +59,16 @@ interface ActionSheetOptions {
 interface PlayGameProps {
   addGameResult: (r: gameResult) => void;
   currentGame: currentGame;
+  gameResults: gameResult[];
 }
 
-const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
+const PlayGame: React.FC<PlayGameProps> = ({
+  addGameResult,
+  currentGame,
+  gameResults,
+}) => {
   const [showActionSheet, setShowActionSheet] = useState(false);
-
+  const [results, setResults] = useState<gameResult[]>(gameResults);
   const history = useHistory();
   const [modal, setModal] = useState({ isOpen: false });
   const pageRef = useRef();
@@ -234,8 +239,8 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
                   <MyModal
                     isOpen={modal.isOpen}
                     onClose={() => setModal({ isOpen: false })}
-                    addGameResult={function (r: gameResult): void {}}
-                    currentGame={currentGame}
+                    gameResults={results}
+                    uniquePlayers={getUniquePlayers(results)}
                   />
                   <IonButton
                     expand='block'

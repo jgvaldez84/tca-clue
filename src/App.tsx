@@ -25,6 +25,7 @@ import SetupGame from './pages/SetupGame';
 import PlayGame from './pages/PlayGame';
 
 import { useState } from 'react';
+import Modal from './components/Modal';
 
 setupIonicReact();
 
@@ -79,7 +80,7 @@ gameResults = addGameResult(gameResults, {
   ],
 });
 
-const getUniquePlayers = (results: gameResult[]) => [
+export const getUniquePlayers = (results: gameResult[]) => [
   ...new Set(results.flatMap((x) => x.players.map((y) => y.name))),
 ];
 
@@ -98,9 +99,20 @@ const App: React.FC = () => {
     <IonApp>
       <IonReactHashRouter>
         <IonRouterOutlet>
-          <Route exact path='/guess'></Route>
+          <Route exact path='modal'>
+            <Modal
+              isOpen={undefined}
+              onClose={undefined}
+              gameResults={[]}
+              uniquePlayers={[]}
+            />
+          </Route>
           <Route exact path='/play'>
-            <PlayGame currentGame={currentGame} addGameResult={addGameResult} />
+            <PlayGame
+              currentGame={currentGame}
+              gameResults={results}
+              addGameResult={addGameResult}
+            />
           </Route>
           <Route exact path='/setup'>
             <SetupGame

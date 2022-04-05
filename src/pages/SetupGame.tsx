@@ -15,7 +15,7 @@ import {
   IonCardHeader,
   IonInput,
 } from '@ionic/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { currentGame } from '../App';
 import clue from '../components/clue.jpeg';
@@ -35,9 +35,17 @@ const SetupGame: React.FC<SetGameProps> = ({
     name: x,
     checked: false,
   }));
-
   const [sortedPlayers, setSortedPlayers] = useState(checkedPlayers);
   const [newPlayerName, setNewPlayerName] = useState('');
+
+  // useEffect(() => {
+  //   setSortedPlayers(
+  //     uniquePlayers.map((x) => ({
+  //       name: x,
+  //       checked: false,
+  //     }))
+  //   );
+  // }, [uniquePlayers]);
 
   const togglePlayerChecked = (p: any) => {
     setSortedPlayers(

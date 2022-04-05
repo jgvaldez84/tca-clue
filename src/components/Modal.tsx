@@ -1,89 +1,103 @@
-import { useState, useRef } from 'react';
 import {
-  IonPage,
-  IonModal,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonImg,
   IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
   IonButton,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonModal,
+  IonImg,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonItem,
 } from '@ionic/react';
-import { useHistory } from 'react-router';
 
+import { gameResult } from '../App';
 import clue from '../components/clue.jpeg';
-import { currentGame, gameResult } from '../App';
 
 interface ModalProps {
   isOpen: any;
   onClose: any;
-}
-interface PlayGameProps {
-  addGameResult: (r: gameResult) => void;
-  currentGame: currentGame;
+  gameResults: gameResult[];
+  uniquePlayers: string[];
 }
 
-const MyModal: React.FC<ModalProps & PlayGameProps> = ({
+const calculateLeaderBoard = (p: string[], r: gameResult[]) => {
+  const lb = p.map((x) => {
+    const gamesThisPlayerHasPlayed = r.filter((y) =>
+      y.players.some((z) => z.name === x)
+    );
+    const gamesThisPlayerHasWon = gamesThisPlayerHasPlayed.filter(
+      (y) => y.winner === x
+    );
+
+    return {
+      name: x,
+      wins: gamesThisPlayerHasWon.length,
+      losses: gamesThisPlayerHasPlayed.length - gamesThisPlayerHasWon.length,
+      winningPercentage:
+        (
+          gamesThisPlayerHasWon.length / gamesThisPlayerHasPlayed.length
+        ).toFixed(2) + `%`,
+    };
+  });
+  return lb;
+};
+
+const MyModal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
-  addGameResult,
-  currentGame,
+  gameResults,
+  uniquePlayers,
 }) => {
-  const quitGame = () => {
-    addGameResult({
-      winner: 'Me',
-      players: currentGame.players.map((x: any) => ({
-        name: x,
-        order: 0,
-      })),
-    });
-  };
-
-  const lostGame = () => {
-    addGameResult({
-      winner: '',
-      loser: 'Me',
-      players: currentGame.players.map((x: any) => ({
-        name: x,
-        order: 0,
-      })),
-    });
-  };
+  const lb = calculateLeaderBoard(uniquePlayers, gameResults);
 
   return (
     <IonPage>
       <IonModal isOpen={isOpen}>
         <IonHeader>
           <IonToolbar>
-            <IonTitle>My Modal</IonTitle>
+            <IonTitle>Game Stats</IonTitle>
           </IonToolbar>
-          <IonImg src={clue}></IonImg>
+          <IonImg src={clue} alt='clue logo'></IonImg>
         </IonHeader>
-        <IonContent className='ion-padding'>
-          <IonButton
-            expand='block'
-            className='ion-text-center'
-            color='secondary'
-            routerLink='/home'
-            onClick={onClose}
-          >
-            Guessed Right
-          </IonButton>
-          <IonButton
-            expand='block'
-            className='ion-text-center'
-            color='secondary'
-            routerLink='/play'
-            onClick={onClose}
-          >
-            Guessed Wrong
-          </IonButton>
-          <IonButton expand='block' onClick={quitGame}>
-            Quit
-          </IonButton>
-          <IonButton expand='block' onClick={onClose}>
-            Close Modal
-          </IonButton>
+        <IonContent fullscreen>
+          {/* <IonHeader collapse='condense'>
+            <IonToolbar>
+              <IonTitle size='large'>Home</IonTitle>
+            </IonToolbar>
+          </IonHeader> */}
+          <IonCard>
+            <IonCardHeader>
+              <IonCardTitle className='ion-text-center'>
+                Game Stats
+              </IonCardTitle>
+            </IonCardHeader>
+            <IonItem className='ion-text-center'>
+              Total Games Played: {gameResults.length}
+            </IonItem>
+            <IonGrid>
+              {calculateLeaderBoard(uniquePlayers, gameResults)
+                .sort((a, b) =>
+                  b.winningPercentage.localeCompare(a.winningPercentage)
+                )
+                .map((x) => (
+                  <IonRow>
+                    <IonCol>{x.name}</IonCol>
+                    <IonCol>{x.losses}</IonCol>
+                    <IonCol>{x.winningPercentage}</IonCol>
+                    <IonCol>{x.wins}</IonCol>
+                  </IonRow>
+                ))}
+            </IonGrid>
+            <IonButton expand='block' onClick={onClose}>
+              Close Modal
+            </IonButton>
+          </IonCard>
         </IonContent>
       </IonModal>
     </IonPage>
