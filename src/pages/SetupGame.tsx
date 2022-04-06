@@ -38,14 +38,14 @@ const SetupGame: React.FC<SetGameProps> = ({
   const [sortedPlayers, setSortedPlayers] = useState(checkedPlayers);
   const [newPlayerName, setNewPlayerName] = useState('');
 
-  // useEffect(() => {
-  //   setSortedPlayers(
-  //     uniquePlayers.map((x) => ({
-  //       name: x,
-  //       checked: false,
-  //     }))
-  //   );
-  // }, [uniquePlayers]);
+  useEffect(() => {
+    setSortedPlayers(
+      uniquePlayers.map((x) => ({
+        name: x,
+        checked: true,
+      }))
+    );
+  }, [uniquePlayers]);
 
   const togglePlayerChecked = (p: any) => {
     setSortedPlayers(
@@ -72,6 +72,14 @@ const SetupGame: React.FC<SetGameProps> = ({
     });
     // Nav to the play screen.
     nav.push('/play');
+    // const alert = () => {
+    //   if (sortedPlayers.length < 2) {
+    //     console.log('Not Enough Players');
+    //   }
+    //   if (sortedPlayers.length > 6) {
+    //     console.log('Too many players');
+    //   }
+    // };
   };
   console.log(sortedPlayers);
   return (
@@ -111,7 +119,7 @@ const SetupGame: React.FC<SetGameProps> = ({
                   <IonCheckbox
                     slot='start'
                     checked={x.checked}
-                    onIonChange={(E) => togglePlayerChecked(x)}
+                    onIonChange={(e) => togglePlayerChecked(x)}
                   />
                 </IonItem>
               ))}

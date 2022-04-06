@@ -131,14 +131,6 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
               >
                 Game Stats
               </IonButton>
-              <IonButton
-                expand='block'
-                className='ion-text-center'
-                color='secondary'
-                routerLink='/guess'
-              >
-                Guess
-              </IonButton>
             </IonCardContent>
           </IonCard>
         </IonContent>
