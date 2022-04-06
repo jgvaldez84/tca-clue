@@ -20,7 +20,17 @@ import {
   IonRow,
   IonCol,
 } from '@ionic/react';
-import { trash, share, caretForwardCircle, heart, close } from 'ionicons/icons';
+import {
+  trash,
+  share,
+  caretForwardCircle,
+  heart,
+  close,
+  homeOutline,
+  glassesSharp,
+  glasses,
+  glassesOutline,
+} from 'ionicons/icons';
 import { currentGame, gameResult } from '../App';
 import { useHistory } from 'react-router';
 import clue from '../components/clue.jpeg';
@@ -92,7 +102,7 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
       <IonApp>
         <IonHeader>
           <IonToolbar color='primary'>
-            <IonTitle className='ion-text-center'>Make your Choices</IonTitle>
+            <IonTitle className='ion-text-center'>Who Dun It?</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
@@ -215,14 +225,8 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
             </IonItem>
           </IonCard>
 
-          {winningPlayer}
-
-          <IonButton expand='block' onClick={() => history.push('/')}>
-            Quit
-          </IonButton>
-
           <IonButton onClick={() => setShowActionSheet(true)} expand='block'>
-            Show Action Sheet
+            Make Your Next Move
           </IonButton>
           <IonActionSheet
             isOpen={showActionSheet}
@@ -230,7 +234,16 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
             cssClass='my-custom-class'
             buttons={[
               {
-                text: 'Delete',
+                text: 'Did you get the criminal?',
+                icon: glassesOutline,
+                data: 'Data value',
+                handler: () => {
+                  console.log('Play clicked');
+                  history.push('/guess');
+                },
+              },
+              {
+                text: 'Quit',
                 role: 'destructive',
                 icon: trash,
                 id: 'delete-button',
@@ -241,29 +254,7 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
                   console.log('Delete clicked');
                 },
               },
-              {
-                text: 'Share',
-                icon: share,
-                data: 10,
-                handler: () => {
-                  console.log('Share clicked');
-                },
-              },
-              {
-                text: 'Play (open modal)',
-                icon: caretForwardCircle,
-                data: 'Data value',
-                handler: () => {
-                  console.log('Play clicked');
-                },
-              },
-              {
-                text: 'Favorite',
-                icon: heart,
-                handler: () => {
-                  console.log('Favorite clicked');
-                },
-              },
+
               {
                 text: 'Cancel',
                 icon: close,

@@ -20,6 +20,7 @@ import './Home.css';
 import clue from '../components/clue.jpeg';
 import { gameResult, getUniquePlayers } from '../App';
 import MyModal from '../components/Modal';
+
 import { useState } from 'react';
 
 interface HomeProps {
@@ -129,6 +130,14 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
                 onClick={() => setModal({ isOpen: true })}
               >
                 Game Stats
+              </IonButton>
+              <IonButton
+                expand='block'
+                className='ion-text-center'
+                color='secondary'
+                routerLink='/guess'
+              >
+                Guess
               </IonButton>
             </IonCardContent>
           </IonCard>

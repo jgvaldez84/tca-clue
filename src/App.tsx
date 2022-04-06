@@ -23,6 +23,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import SetupGame from './pages/SetupGame';
 import PlayGame from './pages/PlayGame';
+import MakeGuess from './components/MakeGuess';
 
 import { useState } from 'react';
 import Modal from './components/Modal';
@@ -82,7 +83,14 @@ const App: React.FC = () => {
     <IonApp>
       <IonReactHashRouter>
         <IonRouterOutlet>
-          <Route exact path='modal'>
+          <Route exact path='/guess'>
+            <MakeGuess
+              currentGame={currentGame}
+              gameResults={results}
+              addGameResult={addGameResult}
+            />
+          </Route>
+          <Route exact path='/modal'>
             <Modal
               isOpen={undefined}
               onClose={undefined}
