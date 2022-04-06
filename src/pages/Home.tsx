@@ -60,13 +60,13 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
     <IonPage>
       <IonApp>
         <IonHeader>
-          <IonToolbar color='primary'>
+          <IonToolbar color='tertiary'>
             <IonTitle className='ion-text-center'>
               The companion App for
             </IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent fullscreen>
+        <IonContent fullscreen color='dark'>
           <IonImg src={clue} className='ion-padding' alt='clue logo'></IonImg>
           {/* <IonHeader collapse='condense'>
             <IonToolbar>
@@ -74,11 +74,12 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
             </IonToolbar>
           </IonHeader> */}
 
-          <IonCard>
+          <IonCard color='tertiary'>
             <IonButton
+              fill='outline'
               expand='block'
               className='ion-text-center'
-              color='secondary'
+              color='success'
               routerLink='/setup'
             >
               Setup New Game
@@ -93,7 +94,7 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
               Go To Gameboard
             </IonButton>
           </IonCard>
-          <IonCard>
+          <IonCard color='tertiary'>
             <IonCardHeader>
               <IonCardTitle className='ion-text-center'>Winners</IonCardTitle>
             </IonCardHeader>
@@ -113,7 +114,7 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
                 ))}
             </IonGrid>
           </IonCard>
-          <IonCard>
+          <IonCard color='tertiary'>
             <IonCardContent>
               <IonCardTitle className='ion-text-center'>
                 More Stats

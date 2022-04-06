@@ -9,7 +9,12 @@ import {
   IonApp,
   IonCard,
   IonCardHeader,
+  IonGrid,
+  IonList,
+  IonIcon,
+  IonCardContent,
 } from '@ionic/react';
+import { trash, close, glassesOutline, checkmarkCircle } from 'ionicons/icons';
 
 import { currentGame, gameResult } from '../App';
 import { useHistory } from 'react-router';
@@ -25,9 +30,18 @@ const MakeGuess: React.FC<GuessProps> = ({ addGameResult, currentGame }) => {
   const history = useHistory();
 
   const winningPlayer = currentGame.players.map((x) => (
-    <IonButton key={x} onClick={() => endGame(x)}>
-      {x} won
-    </IonButton>
+    <IonGrid>
+      <IonList>
+        <IonButton
+          fill='outline'
+          color='success'
+          key={x}
+          onClick={() => endGame(x)}
+        >
+          {x} solved the mystery
+        </IonButton>
+      </IonList>
+    </IonGrid>
   ));
   const endGame = (winner: string) => {
     console.log(currentGame);
@@ -57,15 +71,25 @@ const MakeGuess: React.FC<GuessProps> = ({ addGameResult, currentGame }) => {
           <IonImg src={clue} className='ion-padding'></IonImg>
           <IonCard>
             <IonCardHeader className='ion-text-center'>
-              Which Detective solved the mystery?
+              <IonTitle className='ion-padding'>
+                Which Detective <br></br>solved the mystery?
+              </IonTitle>
             </IonCardHeader>
 
             {winningPlayer}
           </IonCard>
-
-          <IonButton expand='block' onClick={() => history.push('/')}>
-            Quit
-          </IonButton>
+          <IonCard>
+            <IonCardContent>
+              <IonButton
+                expand='block'
+                color='warning'
+                className='ion-padding'
+                onClick={() => history.push('/')}
+              >
+                Quit
+              </IonButton>
+            </IonCardContent>
+          </IonCard>
         </IonContent>
       </IonApp>
     </IonPage>

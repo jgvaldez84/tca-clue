@@ -16,8 +16,11 @@ import {
   IonList,
   IonActionSheet,
   IonGrid,
+  IonCardTitle,
+  IonChip,
+  IonIcon,
 } from '@ionic/react';
-import { trash, close, glassesOutline } from 'ionicons/icons';
+import { trash, close, glassesOutline, checkmarkCircle } from 'ionicons/icons';
 import { currentGame, gameResult } from '../App';
 import { useHistory } from 'react-router';
 import clue from '../components/clue.jpeg';
@@ -47,15 +50,25 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
+          <IonChip>
+            <IonLabel>Default</IonLabel>
+          </IonChip>
           <IonImg src={clue} className='ion-padding'></IonImg>
           <IonCard>
-            <IonCardHeader>Current Detectives:</IonCardHeader>
+            <IonCardHeader>
+              <IonCardTitle className='ion-text-center'>
+                Current Detectives:
+              </IonCardTitle>
+            </IonCardHeader>
             {currentGame.players.map((x) => (
               <IonGrid>
                 <IonList lines='none'>
-                  <IonItem>
-                    <IonLabel key={x}>{x}</IonLabel>
-                  </IonItem>
+                  <IonChip outline color='success'>
+                    <IonIcon icon={checkmarkCircle}></IonIcon>
+                    <IonLabel color='success' key={x}>
+                      {x}
+                    </IonLabel>
+                  </IonChip>
                 </IonList>
               </IonGrid>
             ))}
