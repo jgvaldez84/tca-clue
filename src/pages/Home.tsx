@@ -54,7 +54,6 @@ const calculateLeaderBoard = (p: string[], r: gameResult[]) => {
 
 const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
   const [modal, setModal] = useState({ isOpen: false });
-  const lb = calculateLeaderBoard(uniquePlayers, gameResults);
 
   return (
     <IonPage>
@@ -78,7 +77,7 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
             <IonButton
               fill='outline'
               expand='block'
-              className='ion-text-center'
+              className='ion-text-center, ion-padding'
               color='success'
               routerLink='/setup'
             >
@@ -86,13 +85,15 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
             </IonButton>
             <br></br>
             <IonButton
+              fill='outline'
               expand='block'
-              className='ion-text-center'
-              color='secondary'
+              className='ion-text-center, ion-padding'
+              color='success'
               routerLink='/play'
             >
               Go To Gameboard
             </IonButton>
+            <br></br>
           </IonCard>
           <IonCard color='tertiary'>
             <IonCardHeader>
@@ -127,6 +128,8 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
                 uniquePlayers={getUniquePlayers(gameResults)}
               />
               <IonButton
+                fill='outline'
+                color='success'
                 expand='block'
                 onClick={() => setModal({ isOpen: true })}
               >
