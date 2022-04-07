@@ -14,7 +14,10 @@ import {
   IonCardContent,
   IonCardHeader,
   IonInput,
+  IonIcon,
 } from '@ionic/react';
+
+import { arrowBackSharp, lockOpenSharp } from 'ionicons/icons';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { currentGame } from '../App';
@@ -29,7 +32,7 @@ const SetupGame: React.FC<SetGameProps> = ({
   uniquePlayers,
   setCurrentGame,
 }) => {
-  const nav = useHistory();
+  const history = useHistory();
 
   const checkedPlayers = uniquePlayers.map((x) => ({
     name: x,
@@ -71,7 +74,7 @@ const SetupGame: React.FC<SetGameProps> = ({
       players: sortedPlayers.filter((x) => x.checked).map((x) => x.name),
     });
     // Nav to the play screen.
-    nav.push('/play');
+    history.push('/play');
     // const alert = () => {
     //   if (sortedPlayers.length < 2) {
     //     console.log('Not Enough Players');
@@ -86,35 +89,39 @@ const SetupGame: React.FC<SetGameProps> = ({
     <IonPage>
       <IonApp>
         <IonHeader>
-          <IonToolbar color='primary'>
+          <IonToolbar color='peacock'>
             <IonTitle className='ion-text-center'>
               Setup your next Mystery
             </IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent fullscreen>
+        <IonContent color='hunter-green' fullscreen>
           <IonImg src={clue} className='ion-padding'></IonImg>
-          <IonCard>
-            <IonCardHeader className='ion-text-center'>
-              Choose Detectives
+          <IonCard color='mustard'>
+            <IonCardHeader color='mustard' className='ion-text-center'>
+              <IonTitle>Choose Detectives</IonTitle>
             </IonCardHeader>
             <IonCardContent>
-              <div>
-                <IonItem>
-                  <IonLabel position='floating'>Enter Detective Name</IonLabel>
-                  <IonInput
-                    value={newPlayerName}
-                    onIonChange={(e) =>
-                      setNewPlayerName((e.target as any).value)
-                    }
-                  ></IonInput>
-                </IonItem>
-                <IonButton expand='block' onClick={addNewPlayer}>
-                  Add
-                </IonButton>
-              </div>
+              <IonItem color='mustard'>
+                <IonLabel position='floating'>Enter Detective Name</IonLabel>
+                <IonInput
+                  value={newPlayerName}
+                  onIonChange={(e) => setNewPlayerName((e.target as any).value)}
+                ></IonInput>
+              </IonItem>
+
+              <IonButton
+                color='scarlet'
+                className='ion-padding'
+                expand='block'
+                onClick={addNewPlayer}
+                size='large'
+              >
+                Add
+              </IonButton>
+              <br></br>
               {sortedPlayers.map((x) => (
-                <IonItem>
+                <IonItem color='mustard'>
                   <IonLabel>{x.name}</IonLabel>
                   <IonCheckbox
                     slot='start'
@@ -125,15 +132,29 @@ const SetupGame: React.FC<SetGameProps> = ({
               ))}
             </IonCardContent>
           </IonCard>
-          <IonCard>
+          <IonCard color='mustard'>
+            <IonCardHeader color='mustard' className='ion-text-center'>
+              <IonTitle>Here We Go</IonTitle>
+            </IonCardHeader>
             <IonCardContent>
               <IonButton
                 className='ion-padding'
-                color='danger'
-                expand='full'
+                color='scarlet'
+                expand='block'
                 onClick={startGame}
+                fill='outline'
               >
-                Start Playing
+                <IonIcon icon={lockOpenSharp}></IonIcon>
+                &nbsp; Start Playing
+              </IonButton>
+              <IonButton
+                className='ion-padding'
+                color='scarlet'
+                expand='block'
+                routerLink='/'
+              >
+                <IonIcon icon={arrowBackSharp}></IonIcon>
+                &nbsp; Go Back
               </IonButton>
             </IonCardContent>
           </IonCard>

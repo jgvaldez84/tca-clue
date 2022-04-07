@@ -59,7 +59,7 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
     <IonPage>
       <IonApp>
         <IonHeader>
-          <IonToolbar color='tertiary'>
+          <IonToolbar color='plum'>
             <IonTitle className='ion-text-center'>
               The companion App for
             </IonTitle>
@@ -73,7 +73,7 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
             </IonToolbar>
           </IonHeader> */}
 
-          <IonCard color='tertiary'>
+          <IonCard color='plum'>
             <IonButton
               fill='outline'
               expand='block'
@@ -95,7 +95,7 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
             </IonButton>
             <br></br>
           </IonCard>
-          <IonCard color='tertiary'>
+          <IonCard color='plum'>
             <IonCardHeader>
               <IonCardTitle className='ion-text-center'>Winners</IonCardTitle>
             </IonCardHeader>
@@ -115,12 +115,12 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
                 ))}
             </IonGrid>
           </IonCard>
-          <IonCard color='tertiary'>
+          <IonCard color='plum'>
             <IonCardContent>
-              <IonCardTitle className='ion-text-center'>
+              <IonCardTitle color='white' className='ion-text-center'>
                 More Stats
               </IonCardTitle>
-
+              <br></br>
               <MyModal
                 isOpen={modal.isOpen}
                 onClose={() => setModal({ isOpen: false })}
