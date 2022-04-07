@@ -79,7 +79,19 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
               <IonCardSubtitle>Characters</IonCardSubtitle>
             </IonCardHeader>
             <IonItem>
+              <IonLabel>Mrs. Scarlett</IonLabel>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+            </IonItem>
+            <IonItem>
+              <IonLabel>Colonel Mustard</IonLabel>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+            </IonItem>
+            <IonItem>
               <IonLabel>Mrs. White</IonLabel>
+              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+            </IonItem>
+            <IonItem>
+              <IonLabel>Mr. Green</IonLabel>
               <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
             <IonItem>
@@ -88,22 +100,6 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
             </IonItem>
             <IonItem>
               <IonLabel>Professor Plum</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Colonel Mustard</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Miss Scarlett</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Reverend Green</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Mr. Boddy</IonLabel>
               <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
             </IonItem>
           </IonCard>
