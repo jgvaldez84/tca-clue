@@ -104,7 +104,7 @@ const MyModal: React.FC<ModalProps> = ({
                 ))}
             </IonGrid>
             <IonButton expand='block' onClick={onClose}>
-              Close Modal
+              Close
             </IonButton>
           </IonCard>
         </IonContent>
