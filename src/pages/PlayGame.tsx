@@ -11,7 +11,6 @@ import {
   IonLabel,
   IonCheckbox,
   IonCardHeader,
-  IonCardSubtitle,
   IonItem,
   IonList,
   IonActionSheet,
@@ -19,6 +18,7 @@ import {
   IonCardTitle,
   IonChip,
   IonIcon,
+  IonCardContent,
 } from '@ionic/react';
 import { trash, close, glassesOutline, checkmarkCircle } from 'ionicons/icons';
 import { currentGame, gameResult } from '../App';
@@ -45,18 +45,18 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
     <IonPage ref={pageRef}>
       <IonApp>
         <IonHeader>
-          <IonToolbar color='primary'>
+          <IonToolbar color='hunter-green'>
             <IonTitle className='ion-text-center'>Who Dun It?</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent fullscreen>
+        <IonContent color='dark' fullscreen>
           <IonChip>
             <IonLabel>Default</IonLabel>
           </IonChip>
           <IonImg src={clue} className='ion-padding'></IonImg>
           <IonCard>
             <IonCardHeader>
-              <IonCardTitle className='ion-text-center'>
+              <IonCardTitle color='scarlet' className='ion-text-center'>
                 Current Detectives:
               </IonCardTitle>
             </IonCardHeader>
@@ -74,107 +74,113 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
             ))}
           </IonCard>
 
-          <IonCard color='light'>
+          <IonCard color='medium' className='ion-text-center'>
             <IonCardHeader>
-              <IonCardSubtitle>Characters</IonCardSubtitle>
+              <IonCardTitle>Characters</IonCardTitle>
             </IonCardHeader>
-            <IonItem>
-              <IonLabel>Mrs. Scarlett</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Colonel Mustard</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Mrs. White</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Mr. Green</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Mrs. Peacock</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Professor Plum</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
+            <IonCardContent>
+              <IonItem color='scarlet'>
+                <IonLabel>Mrs. Scarlett</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='mustard'>
+                <IonLabel>Colonel Mustard</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='white'>
+                <IonLabel>Mrs. White</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='hunter-green'>
+                <IonLabel>Mr. Green</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='peacock'>
+                <IonLabel>Mrs. Peacock</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='plum'>
+                <IonLabel>Professor Plum</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+            </IonCardContent>
           </IonCard>
           <IonCard color='medium'>
             <IonCardHeader>
-              <IonCardSubtitle>Rooms</IonCardSubtitle>
+              <IonCardTitle className='ion-text-center'>Rooms</IonCardTitle>
             </IonCardHeader>
-            <IonItem>
-              <IonLabel>Ball Room</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Billiard Room</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Conservatory</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Dining Room</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Hall</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Kitchen</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Lounge</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Library</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Study</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
+            <IonCardContent>
+              <IonItem color='peacock'>
+                <IonLabel>Ball Room</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='peacock'>
+                <IonLabel>Billiard Room</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='peacock'>
+                <IonLabel>Conservatory</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='peacock'>
+                <IonLabel>Dining Room</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='peacock'>
+                <IonLabel>Hall</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='peacock'>
+                <IonLabel>Kitchen</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='peacock'>
+                <IonLabel>Lounge</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='peacock'>
+                <IonLabel>Library</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='peacock'>
+                <IonLabel>Study</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+            </IonCardContent>
           </IonCard>
 
-          <IonCard color='dark'>
+          <IonCard color='medium'>
             <IonCardHeader>
-              <IonCardSubtitle>Weapons</IonCardSubtitle>
+              <IonCardTitle className='ion-text-center'>Weapons</IonCardTitle>
             </IonCardHeader>
-            <IonItem>
-              <IonLabel>Knife</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Revolver</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Rope</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Wrench</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Candlestick</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
-            <IonItem>
-              <IonLabel>Lead Pipe</IonLabel>
-              <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
-            </IonItem>
+            <IonCardContent>
+              <IonItem color='dark'>
+                <IonLabel>Knife</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='dark'>
+                <IonLabel>Revolver</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='dark'>
+                <IonLabel>Rope</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='dark'>
+                <IonLabel>Wrench</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='dark'>
+                <IonLabel>Candlestick</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+              <IonItem color='dark'>
+                <IonLabel>Lead Pipe</IonLabel>
+                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+              </IonItem>
+            </IonCardContent>
           </IonCard>
-          <IonCard>
+          <IonCard color='medium'>
             <IonButton onClick={() => setShowActionSheet(true)} expand='block'>
               Make Your Next Move
             </IonButton>
