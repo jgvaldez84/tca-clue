@@ -25,8 +25,9 @@ import SetupGame from './pages/SetupGame';
 import PlayGame from './pages/PlayGame';
 import MakeGuess from './components/MakeGuess';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from './components/Modal';
+import localforage from 'localforage';
 
 setupIonicReact();
 
@@ -37,8 +38,6 @@ interface player {
 
 export interface gameResult {
   winner: string; // "Me"
-  loser?: string; //'Kenny'
-  quit?: string; //'Colleen'
   players: player[];
 }
 
@@ -47,36 +46,51 @@ export interface currentGame {
   players: string[];
 }
 
-const game1: gameResult = {
-  winner: '',
-  players: [{ name: 'Me', order: 1 }],
-};
+// const game1: gameResult = {
+//   winner: '',
+//   players: [{ name: 'Me', order: 1 }],
+// };
 
-let gameResults: gameResult[] = [game1];
+// let gameResults: gameResult[] = [];
 
-const addGameResult = (
-  results: gameResult[],
-  result: gameResult
-): gameResult[] => [...results, result];
+// const addGameResult = (
+//   results: gameResult[],
+//   result: gameResult
+// ): gameResult[] => [...results, result];
 
-gameResults = addGameResult(gameResults, {
-  winner: '',
-  players: [{ name: 'Me', order: 1 }],
-});
+// gameResults = addGameResult(gameResults, {
+//   winner: '',
+//   players: [{ name: 'Me', order: 1 }],
+// });
 
 export const getUniquePlayers = (results: gameResult[]) => [
   ...new Set(results.flatMap((x) => x.players.map((y) => y.name))),
 ];
 
 const App: React.FC = () => {
-  const [results, setResults] = useState<gameResult[]>(gameResults);
+  const loadGameResults = async () => {
+    try {
+      const r = await localforage.getItem<gameResult[]>('gameResults');
+      setResults(r ?? []);
+    } catch (err) {
+      console.error(err);
+      setResults([]);
+    }
+  };
+  useEffect(() => {
+    loadGameResults();
+  }, []);
+  const [results, setResults] = useState<gameResult[]>([]);
   const [currentGame, setCurrentGame] = useState<currentGame>({
     start: '',
     players: [],
   });
 
-  const addGameResult = (singleGameResult: gameResult) => {
-    setResults([...results, singleGameResult]);
+  const addGameResult = async (singleGameResult: gameResult) => {
+    const updatedResults = [...results, singleGameResult];
+    await localforage.setItem('gameResults', updatedResults);
+    loadGameResults();
+    // setResults(updatedResults);
   };
 
   return (
