@@ -59,6 +59,28 @@ const SetupGame: React.FC<SetGameProps> = ({
     );
   };
   const addNewPlayer = () => {
+    // Prevent dupes.
+    if (
+      sortedPlayers.some(
+        (x) =>
+          x.name.toUpperCase().localeCompare(newPlayerName.toUpperCase()) === 0
+      )
+    ) {
+      return;
+    }
+    if (sortedPlayers.some((x) => x.name).valueOf.length === 0) {
+      alert('Nothing Entered');
+      return false;
+    }
+    //Prevent blanks
+    // if (
+    //   sortedPlayers.some(
+    //     (x) =>
+    //       x.name.toUpperCase().localeCompare(newPlayerName.toUpperCase()) === ''
+    //   )
+    // ) {
+    //   return;
+    // }
     //add the new player to available players, default to checked as we are likely playing with a new player.
     setSortedPlayers([
       ...sortedPlayers,
