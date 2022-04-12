@@ -66,21 +66,17 @@ const SetupGame: React.FC<SetGameProps> = ({
           x.name.toUpperCase().localeCompare(newPlayerName.toUpperCase()) === 0
       )
     ) {
+      alert('name already entered');
       return;
     }
-    if (sortedPlayers.some((x) => x.name).valueOf.length === 0) {
-      alert('Nothing Entered');
-      return false;
-    }
+    console.log(sortedPlayers);
+
     //Prevent blanks
-    // if (
-    //   sortedPlayers.some(
-    //     (x) =>
-    //       x.name.toUpperCase().localeCompare(newPlayerName.toUpperCase()) === ''
-    //   )
-    // ) {
-    //   return;
-    // }
+    if (newPlayerName.length === 0) {
+      alert('nothing entered');
+      return;
+    }
+
     //add the new player to available players, default to checked as we are likely playing with a new player.
     setSortedPlayers([
       ...sortedPlayers,
@@ -90,23 +86,26 @@ const SetupGame: React.FC<SetGameProps> = ({
     setNewPlayerName('');
   };
   const startGame = () => {
+    if (sortedPlayers.length < 3) {
+      alert('Not enough Players');
+      console.log('Not Enough Players');
+      return;
+    }
+    if (sortedPlayers.length > 6) {
+      alert('Too Many Players');
+      console.log('Too many players');
+      return;
+    }
     // Setup the payers and the start timestamp.
     setCurrentGame({
       start: new Date().toISOString(),
       players: sortedPlayers.filter((x) => x.checked).map((x) => x.name),
     });
+
     // Nav to the play screen.
     history.push('/play');
-    // const alert = () => {
-    //   if (sortedPlayers.length < 2) {
-    //     console.log('Not Enough Players');
-    //   }
-    //   if (sortedPlayers.length > 6) {
-    //     console.log('Too many players');
-    //   }
-    // };
   };
-  console.log(sortedPlayers);
+
   return (
     <IonPage>
       <IonApp>

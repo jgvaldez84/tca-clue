@@ -48,7 +48,6 @@ const calculateLeaderBoard = (p: string[], r: gameResult[]) => {
     };
   });
 
-  console.log('calculateLeaderBoard', lb);
   return lb;
 };
 
