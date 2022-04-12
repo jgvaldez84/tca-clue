@@ -11,10 +11,8 @@ import {
   IonCardHeader,
   IonGrid,
   IonList,
-  IonIcon,
   IonCardContent,
 } from '@ionic/react';
-import { trash, close, glassesOutline, checkmarkCircle } from 'ionicons/icons';
 
 import { currentGame, gameResult } from '../App';
 import { useHistory } from 'react-router';

@@ -24,7 +24,6 @@ import './theme/variables.css';
 import SetupGame from './pages/SetupGame';
 import PlayGame from './pages/PlayGame';
 import MakeGuess from './components/MakeGuess';
-import ToastExample from './pages/Toast';
 
 import { useEffect, useState } from 'react';
 import Modal from './components/Modal';
@@ -80,10 +79,6 @@ const App: React.FC = () => {
     <IonApp>
       <IonReactHashRouter>
         <IonRouterOutlet>
-          <Route exact path='/toast'>
-            <ToastExample />
-          </Route>
-
           <Route exact path='/guess'>
             <MakeGuess
               currentGame={currentGame}
