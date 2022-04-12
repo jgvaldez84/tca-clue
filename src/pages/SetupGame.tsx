@@ -15,6 +15,7 @@ import {
   IonCardHeader,
   IonInput,
   IonIcon,
+  IonToast,
 } from '@ionic/react';
 
 import { arrowBackSharp, lockOpenSharp } from 'ionicons/icons';
@@ -32,6 +33,10 @@ const SetupGame: React.FC<SetGameProps> = ({
   uniquePlayers,
   setCurrentGame,
 }) => {
+  const [alreadyAdded, setAlreadyAdded] = useState(false);
+  const [tooMany, setTooMany] = useState(false);
+  const [notEnough, setNotEnough] = useState(false);
+  const [noName, setNoName] = useState(false);
   const history = useHistory();
 
   const checkedPlayers = uniquePlayers.map((x) => ({
@@ -66,14 +71,15 @@ const SetupGame: React.FC<SetGameProps> = ({
           x.name.toUpperCase().localeCompare(newPlayerName.toUpperCase()) === 0
       )
     ) {
-      alert('name already entered');
+      setAlreadyAdded(true);
       return;
     }
     console.log(sortedPlayers);
 
     //Prevent blanks
     if (newPlayerName.length === 0) {
-      alert('nothing entered');
+      setNoName(true);
+
       return;
     }
 
@@ -87,12 +93,12 @@ const SetupGame: React.FC<SetGameProps> = ({
   };
   const startGame = () => {
     if (sortedPlayers.length < 3) {
-      alert('Not enough Players');
+      setNotEnough(true);
       console.log('Not Enough Players');
       return;
     }
     if (sortedPlayers.length > 6) {
-      alert('Too Many Players');
+      setTooMany(true);
       console.log('Too many players');
       return;
     }
@@ -166,7 +172,7 @@ const SetupGame: React.FC<SetGameProps> = ({
                 fill='outline'
               >
                 <IonIcon icon={lockOpenSharp}></IonIcon>
-                &nbsp; Start Playing
+                &nbsp; Begin the Investigation
               </IonButton>
               <IonButton
                 className='ion-padding'
@@ -179,6 +185,35 @@ const SetupGame: React.FC<SetGameProps> = ({
               </IonButton>
             </IonCardContent>
           </IonCard>
+          <IonToast
+            isOpen={alreadyAdded}
+            onDidDismiss={() => setAlreadyAdded(false)}
+            color='danger'
+            message='Name already added, please add a new detective'
+            duration={1500}
+          ></IonToast>
+          <IonToast
+            isOpen={noName}
+            onDidDismiss={() => setNoName(false)}
+            message='Please enter a name for the detective'
+            color='danger'
+            duration={1500}
+          ></IonToast>
+          <IonToast
+            isOpen={tooMany}
+            onDidDismiss={() => setTooMany(false)}
+            color='danger'
+            message='Only six detectives can investigate at a time'
+            duration={1500}
+          ></IonToast>
+          <IonToast
+            isOpen={notEnough}
+            onDidDismiss={() => setNotEnough(false)}
+            color='danger'
+            message='At least three detectives are required to start investigating'
+            duration={1500}
+          ></IonToast>
+          ;
         </IonContent>
       </IonApp>
     </IonPage>

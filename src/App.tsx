@@ -24,6 +24,7 @@ import './theme/variables.css';
 import SetupGame from './pages/SetupGame';
 import PlayGame from './pages/PlayGame';
 import MakeGuess from './components/MakeGuess';
+import ToastExample from './pages/Toast';
 
 import { useEffect, useState } from 'react';
 import Modal from './components/Modal';
@@ -37,7 +38,7 @@ interface player {
 }
 
 export interface gameResult {
-  winner: string; // "Me"
+  winner: string;
   players: player[];
 }
 
@@ -45,23 +46,6 @@ export interface currentGame {
   start: string;
   players: string[];
 }
-
-// const game1: gameResult = {
-//   winner: '',
-//   players: [{ name: 'Me', order: 1 }],
-// };
-
-// let gameResults: gameResult[] = [];
-
-// const addGameResult = (
-//   results: gameResult[],
-//   result: gameResult
-// ): gameResult[] => [...results, result];
-
-// gameResults = addGameResult(gameResults, {
-//   winner: '',
-//   players: [{ name: 'Me', order: 1 }],
-// });
 
 export const getUniquePlayers = (results: gameResult[]) => [
   ...new Set(results.flatMap((x) => x.players.map((y) => y.name))),
@@ -90,13 +74,16 @@ const App: React.FC = () => {
     const updatedResults = [...results, singleGameResult];
     await localforage.setItem('gameResults', updatedResults);
     loadGameResults();
-    // setResults(updatedResults);
   };
 
   return (
     <IonApp>
       <IonReactHashRouter>
         <IonRouterOutlet>
+          <Route exact path='/toast'>
+            <ToastExample />
+          </Route>
+
           <Route exact path='/guess'>
             <MakeGuess
               currentGame={currentGame}
