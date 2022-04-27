@@ -36,6 +36,10 @@ interface PlayGameProps {
 
 const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
   const [showActionSheet, setShowActionSheet] = useState(false);
+  const [checked, setChecked] = useState(false);
+  console.log('checked', checked);
+
+  const handleChange = (event: any) => {};
 
   const history = useHistory();
 
@@ -81,11 +85,21 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
             <IonCardContent>
               <IonItem color='scarlet'>
                 <IonLabel>Mrs. Scarlett</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonCheckbox
+                  onChange={handleChange}
+                  checked
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='mustard'>
                 <IonLabel>Colonel Mustard</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonCheckbox
+                  name='mustard'
+                  checked
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='white'>
                 <IonLabel>Mrs. White</IonLabel>
