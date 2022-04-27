@@ -41,6 +41,43 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
 
   const handleChange = (event: any) => {};
 
+  const [characterCheckState, setCharacterCheckState] = useState(
+    new Map([
+      ['scarlet', true],
+      ['mustard', true],
+      ['white', true],
+      ['green', true],
+      ['peacock', true],
+      ['plum', true],
+    ])
+  );
+
+  const [roomCheckedState, setRoomCheckedState] = useState(
+    new Map([
+      ['ballroom', true],
+      ['billiards', true],
+      ['conservatory', true],
+      ['dining', true],
+      ['hall', true],
+      ['kitchen', true],
+      ['lounge', true],
+      ['library', true],
+      ['study', true],
+    ])
+  );
+
+  const toggleCharacterCheckState = (character: string) => {
+    const newState = new Map([...characterCheckState]);
+    newState.set(character, !characterCheckState.get(character));
+    setCharacterCheckState(newState);
+  };
+
+  const toggleRoomCheckedState = (room: string) => {
+    const newState = new Map([...roomCheckedState]);
+    newState.set(room, !roomCheckedState.get(room));
+    setRoomCheckedState(newState);
+  };
+
   const history = useHistory();
 
   const pageRef = useRef();
@@ -84,38 +121,106 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
             </IonCardHeader>
             <IonCardContent>
               <IonItem color='scarlet'>
-                <IonLabel>Mrs. Scarlett</IonLabel>
+                <IonLabel
+                  style={{
+                    textDecoration: !characterCheckState.get('scarlet')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Mrs. Scarlet
+                </IonLabel>
                 <IonCheckbox
-                  onChange={handleChange}
-                  checked
+                  checked={characterCheckState.get('scarlet')}
+                  onIonChange={() => toggleCharacterCheckState('scarlet')}
                   color='primary'
                   slot='start'
                 ></IonCheckbox>
               </IonItem>
               <IonItem color='mustard'>
-                <IonLabel>Colonel Mustard</IonLabel>
+                <IonLabel
+                  style={{
+                    textDecoration: !characterCheckState.get('mustard')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Colonel Mustard
+                </IonLabel>
                 <IonCheckbox
-                  name='mustard'
-                  checked
+                  checked={characterCheckState.get('mustard')}
+                  onIonChange={() => toggleCharacterCheckState('mustard')}
                   color='primary'
                   slot='start'
                 ></IonCheckbox>
               </IonItem>
               <IonItem color='white'>
-                <IonLabel>Mrs. White</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !characterCheckState.get('white')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Mrs. White
+                </IonLabel>
+                <IonCheckbox
+                  checked={characterCheckState.get('white')}
+                  onIonChange={() => toggleCharacterCheckState('white')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='hunter-green'>
-                <IonLabel>Mr. Green</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !characterCheckState.get('green')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Mr. Green
+                </IonLabel>
+                <IonCheckbox
+                  checked={characterCheckState.get('green')}
+                  onIonChange={() => toggleCharacterCheckState('green')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='peacock'>
-                <IonLabel>Mrs. Peacock</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !characterCheckState.get('peacock')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Mrs. Peacock
+                </IonLabel>
+                <IonCheckbox
+                  checked={characterCheckState.get('peacock')}
+                  onIonChange={() => toggleCharacterCheckState('peacock')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='plum'>
-                <IonLabel>Professor Plum</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !characterCheckState.get('plum')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Professor Plum
+                </IonLabel>
+                <IonCheckbox
+                  checked={characterCheckState.get('plum')}
+                  onIonChange={() => toggleCharacterCheckState('plum')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
             </IonCardContent>
           </IonCard>
@@ -125,8 +230,21 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
             </IonCardHeader>
             <IonCardContent>
               <IonItem color='peacock'>
-                <IonLabel>Ball Room</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !roomCheckedState.get('ballroom')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Ball Room
+                </IonLabel>
+                <IonCheckbox
+                  checked={roomCheckedState.get('ballroom')}
+                  onIonChange={() => toggleRoomCheckedState('ballroom')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='peacock'>
                 <IonLabel>Billiard Room</IonLabel>
