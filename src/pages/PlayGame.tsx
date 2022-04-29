@@ -36,10 +36,10 @@ interface PlayGameProps {
 
 const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
   const [showActionSheet, setShowActionSheet] = useState(false);
-  const [checked, setChecked] = useState(false);
+  const [checked] = useState(false);
   console.log('checked', checked);
 
-  const handleChange = (event: any) => {};
+  // const handleChange = (event: any) => {};
 
   const [characterCheckState, setCharacterCheckState] = useState(
     new Map([
@@ -52,7 +52,7 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
     ])
   );
 
-  const [roomCheckedState, setRoomCheckedState] = useState(
+  const [roomCheckState, setRoomCheckState] = useState(
     new Map([
       ['ballroom', true],
       ['billiards', true],
@@ -66,16 +66,33 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
     ])
   );
 
+  const [weaponCheckState, setWeaponCheckState] = useState(
+    new Map([
+      ['knife', true],
+      ['revolver', true],
+      ['rope', true],
+      ['wrench', true],
+      ['candlestick', true],
+      ['leadPipe', true],
+    ])
+  );
+
   const toggleCharacterCheckState = (character: string) => {
     const newState = new Map([...characterCheckState]);
     newState.set(character, !characterCheckState.get(character));
     setCharacterCheckState(newState);
   };
 
-  const toggleRoomCheckedState = (room: string) => {
-    const newState = new Map([...roomCheckedState]);
-    newState.set(room, !roomCheckedState.get(room));
-    setRoomCheckedState(newState);
+  const toggleRoomCheckState = (room: string) => {
+    const newState = new Map([...roomCheckState]);
+    newState.set(room, !roomCheckState.get(room));
+    setRoomCheckState(newState);
+  };
+
+  const toggleWeaponCheckState = (weapon: string) => {
+    const newState = new Map([...weaponCheckState]);
+    newState.set(weapon, !weaponCheckState.get(weapon));
+    setWeaponCheckState(newState);
   };
 
   const history = useHistory();
@@ -232,7 +249,7 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
               <IonItem color='peacock'>
                 <IonLabel
                   style={{
-                    textDecoration: !roomCheckedState.get('ballroom')
+                    textDecoration: !roomCheckState.get('ballroom')
                       ? 'line-through'
                       : 'inherit',
                   }}
@@ -240,43 +257,147 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
                   Ball Room
                 </IonLabel>
                 <IonCheckbox
-                  checked={roomCheckedState.get('ballroom')}
-                  onIonChange={() => toggleRoomCheckedState('ballroom')}
+                  checked={roomCheckState.get('ballroom')}
+                  onIonChange={() => toggleRoomCheckState('ballroom')}
                   color='primary'
                   slot='start'
                 ></IonCheckbox>
               </IonItem>
               <IonItem color='peacock'>
-                <IonLabel>Billiard Room</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !roomCheckState.get('billiards')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Billiard Room
+                </IonLabel>
+                <IonCheckbox
+                  checked={roomCheckState.get('billiards')}
+                  onIonChange={() => toggleRoomCheckState('billiards')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='peacock'>
-                <IonLabel>Conservatory</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !roomCheckState.get('conservatory')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Conservatory
+                </IonLabel>
+                <IonCheckbox
+                  checked={roomCheckState.get('conservatory')}
+                  onIonChange={() => toggleRoomCheckState('conservatory')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='peacock'>
-                <IonLabel>Dining Room</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !roomCheckState.get('dining')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Dining Room
+                </IonLabel>
+                <IonCheckbox
+                  checked={roomCheckState.get('dining')}
+                  onIonChange={() => toggleRoomCheckState('dining')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='peacock'>
-                <IonLabel>Hall</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !roomCheckState.get('hall')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Hall
+                </IonLabel>
+                <IonCheckbox
+                  checked={roomCheckState.get('hall')}
+                  onIonChange={() => toggleRoomCheckState('hall')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='peacock'>
-                <IonLabel>Kitchen</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !roomCheckState.get('kitchen')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Kitchen
+                </IonLabel>
+                <IonCheckbox
+                  checked={roomCheckState.get('kitchen')}
+                  onIonChange={() => toggleRoomCheckState('kitchen')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='peacock'>
-                <IonLabel>Lounge</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !roomCheckState.get('lounge')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Lounge
+                </IonLabel>
+                <IonCheckbox
+                  checked={roomCheckState.get('lounge')}
+                  onIonChange={() => toggleRoomCheckState('lounge')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='peacock'>
-                <IonLabel>Library</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !roomCheckState.get('library')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Library
+                </IonLabel>
+                <IonCheckbox
+                  checked={roomCheckState.get('library')}
+                  onIonChange={() => toggleRoomCheckState('library')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='peacock'>
-                <IonLabel>Study</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !roomCheckState.get('study')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Study
+                </IonLabel>
+                <IonCheckbox
+                  checked={roomCheckState.get('study')}
+                  onIonChange={() => toggleRoomCheckState('study')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
             </IonCardContent>
           </IonCard>
@@ -287,28 +408,106 @@ const PlayGame: React.FC<PlayGameProps> = ({ addGameResult, currentGame }) => {
             </IonCardHeader>
             <IonCardContent>
               <IonItem color='dark'>
-                <IonLabel>Knife</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !weaponCheckState.get('knife')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Knife
+                </IonLabel>
+                <IonCheckbox
+                  checked={weaponCheckState.get('knife')}
+                  onIonChange={() => toggleWeaponCheckState('knife')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='dark'>
-                <IonLabel>Revolver</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !weaponCheckState.get('revolver')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Revolver
+                </IonLabel>
+                <IonCheckbox
+                  checked={weaponCheckState.get('revolver')}
+                  onIonChange={() => toggleWeaponCheckState('revolver')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='dark'>
-                <IonLabel>Rope</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !weaponCheckState.get('rope')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Rope
+                </IonLabel>
+                <IonCheckbox
+                  checked={weaponCheckState.get('rope')}
+                  onIonChange={() => toggleWeaponCheckState('rope')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='dark'>
-                <IonLabel>Wrench</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !weaponCheckState.get('wrench')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Wrench
+                </IonLabel>
+                <IonCheckbox
+                  checked={weaponCheckState.get('wrench')}
+                  onIonChange={() => toggleWeaponCheckState('wrench')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='dark'>
-                <IonLabel>Candlestick</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !weaponCheckState.get('candlestick')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Candlestick
+                </IonLabel>
+                <IonCheckbox
+                  checked={weaponCheckState.get('candlestick')}
+                  onIonChange={() => toggleWeaponCheckState('candlestick')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
               <IonItem color='dark'>
-                <IonLabel>Lead Pipe</IonLabel>
-                <IonCheckbox checked color='primary' slot='start'></IonCheckbox>
+                <IonLabel
+                  style={{
+                    textDecoration: !weaponCheckState.get('leadPipe')
+                      ? 'line-through'
+                      : 'inherit',
+                  }}
+                >
+                  Lead Pipe
+                </IonLabel>
+                <IonCheckbox
+                  checked={weaponCheckState.get('leadPipe')}
+                  onIonChange={() => toggleWeaponCheckState('leadPipe')}
+                  color='primary'
+                  slot='start'
+                ></IonCheckbox>
               </IonItem>
             </IonCardContent>
           </IonCard>
