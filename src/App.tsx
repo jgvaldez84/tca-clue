@@ -121,8 +121,8 @@ const App: React.FC = () => {
           </Route>
           <Route exact path='/modal'>
             <Modal
-              isOpen={true}
-              onClose={true}
+              isOpen={undefined}
+              onClose={undefined}
               gameResults={[]}
               uniquePlayers={[]}
             />

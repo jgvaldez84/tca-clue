@@ -15,8 +15,9 @@ import {
   IonCardTitle,
   IonCardContent,
   IonInput,
-  IonItem,
+  IonModal,
   IonText,
+  IonItem,
 } from '@ionic/react';
 
 import './Home.css';
@@ -62,7 +63,8 @@ const Home: React.FC<HomeProps> = ({
   emailAddress,
   updateEmailAddress,
 }) => {
-  const [modal, setModal] = useState({ isOpen: false });
+  const [modal, setModal] = useState(false);
+
   const [emailAddressForEditing, setEmailAddressForEditing] =
     useState(emailAddress);
   return (
@@ -77,11 +79,11 @@ const Home: React.FC<HomeProps> = ({
         </IonHeader>
         <IonContent fullscreen color='dark'>
           <IonImg src={clue} className='ion-padding' alt='clue logo'></IonImg>
-          {/* <IonHeader collapse='condense'>
+          <IonHeader collapse='condense'>
             <IonToolbar>
               <IonTitle size='large'>Clue</IonTitle>
             </IonToolbar>
-          </IonHeader> */}
+          </IonHeader>
 
           {emailAddress.length > 0 ? (
             <>
@@ -144,25 +146,72 @@ const Home: React.FC<HomeProps> = ({
                     ))}
                 </IonGrid>
               </IonCard>
+
               <IonCard color='plum'>
                 <IonCardContent>
                   <IonCardTitle color='white' className='ion-text-center'>
                     More Stats
                   </IonCardTitle>
                   <br></br>
+                  <IonModal isOpen={modal}>
+                    <IonHeader>
+                      <IonToolbar>
+                        <IonTitle>Game Stats</IonTitle>
+                      </IonToolbar>
+                      <IonImg src={clue} alt='clue logo'></IonImg>
+                    </IonHeader>
+                    <IonContent fullscreen>
+                      <IonHeader collapse='condense'>
+                        <IonToolbar>
+                          <IonTitle size='large'>Home</IonTitle>
+                        </IonToolbar>
+                      </IonHeader>
+                      <IonCard>
+                        <IonCardHeader>
+                          <IonCardTitle className='ion-text-center'>
+                            Game Stats
+                          </IonCardTitle>
+                        </IonCardHeader>
+                        <IonItem className='ion-text-center'>
+                          Total Games Played: {gameResults.length}
+                        </IonItem>
+                        <IonGrid>
+                          <IonRow>
+                            <IonCol>Name:</IonCol>
+                            <IonCol>Wins:</IonCol>
+                            <IonCol>Losses:</IonCol>
+                            <IonCol>Winning Percentage:</IonCol>
+                          </IonRow>
+                          {calculateLeaderBoard(uniquePlayers, gameResults)
+                            .sort((a, b) =>
+                              b.winningPercentage.localeCompare(
+                                a.winningPercentage
+                              )
+                            )
+                            .map((x) => (
+                              <>
+                                <IonRow>
+                                  <IonCol>{x.name}</IonCol>
+                                  <IonCol>{x.wins}</IonCol>
+                                  <IonCol>{x.losses}</IonCol>
+                                  <IonCol>{x.winningPercentage}</IonCol>
+                                </IonRow>
+                              </>
+                            ))}
+                        </IonGrid>
+                      </IonCard>
+                    </IonContent>
 
+                    <IonButton onClick={() => setModal(false)}>
+                      Close Stats
+                    </IonButton>
+                  </IonModal>
                   <IonButton
                     fill='outline'
                     color='success'
                     expand='block'
-                    onClick={() => setModal({ isOpen: true })}
+                    onClick={() => setModal(true)}
                   >
-                    <MyModal
-                      isOpen={modal.isOpen}
-                      onClose={() => setModal({ isOpen: false })}
-                      gameResults={gameResults}
-                      uniquePlayers={getUniquePlayers(gameResults)}
-                    />
                     Game Stats
                   </IonButton>
                 </IonCardContent>

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   IonContent,
   IonHeader,
@@ -50,16 +51,15 @@ const calculateLeaderBoard = (p: string[], r: gameResult[]) => {
 };
 
 const MyModal: React.FC<ModalProps> = ({
-  isOpen,
   onClose,
   gameResults,
   uniquePlayers,
 }) => {
-  const lb = calculateLeaderBoard(uniquePlayers, gameResults);
-
+  // const lb = calculateLeaderBoard(uniquePlayers, gameResults);
+  const [showModal, setShowModal] = useState(false);
   return (
     <IonPage>
-      <IonModal isOpen={isOpen}>
+      <IonModal>
         <IonHeader>
           <IonToolbar>
             <IonTitle>Game Stats</IonTitle>
@@ -67,11 +67,11 @@ const MyModal: React.FC<ModalProps> = ({
           <IonImg src={clue} alt='clue logo'></IonImg>
         </IonHeader>
         <IonContent fullscreen>
-          {/* <IonHeader collapse='condense'>
+          <IonHeader collapse='condense'>
             <IonToolbar>
               <IonTitle size='large'>Home</IonTitle>
             </IonToolbar>
-          </IonHeader> */}
+          </IonHeader>
           <IonCard>
             <IonCardHeader>
               <IonCardTitle className='ion-text-center'>
@@ -112,5 +112,7 @@ const MyModal: React.FC<ModalProps> = ({
     </IonPage>
   );
 };
+
+/* Using with IonModal Component */
 
 export default MyModal;
