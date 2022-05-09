@@ -97,6 +97,15 @@ const Home: React.FC<HomeProps> = ({
                   expand='block'
                   className='ion-text-center, ion-padding'
                   color='success'
+                  onClick={() => updateEmailAddress('')}
+                >
+                  Sign Out
+                </IonButton>
+                <IonButton
+                  fill='outline'
+                  expand='block'
+                  className='ion-text-center, ion-padding'
+                  color='success'
                   routerLink='/setup'
                 >
                   Setup New Game

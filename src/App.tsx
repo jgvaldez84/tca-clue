@@ -54,16 +54,23 @@ export const getUniquePlayers = (results: gameResult[]) => [
 const App: React.FC = () => {
   const loadGameResults = async () => {
     try {
-      const r = await localforage.getItem<gameResult[]>('gameResults');
-      setResults(r ?? []);
+      const e = await localforage.getItem<string>('emailAddress');
+      setEmailAddress(e ?? '');
+
+      if (emailAddress.length > 0) {
+        const r = await localforage.getItem<gameResult[]>('gameResults');
+        // const r = await loadGameResults(
+        //   emailAddress,
+        //   'tca-clue');
+
+        setResults(r ?? []);
+      }
     } catch (err) {
       console.error(err);
       setResults([]);
     }
   };
-  useEffect(() => {
-    loadGameResults();
-  }, []);
+
   const [results, setResults] = useState<gameResult[]>([]);
   const [currentGame, setCurrentGame] = useState<currentGame>({
     start: '',
@@ -71,6 +78,10 @@ const App: React.FC = () => {
   });
 
   const [emailAddress, setEmailAddress] = useState('');
+
+  useEffect(() => {
+    loadGameResults();
+  }, [emailAddress]);
 
   const updateEmailAddress = async (newEmailAddress: string) => {
     // Update emailAddress state, after saving it to local storage.
@@ -81,17 +92,18 @@ const App: React.FC = () => {
 
   const addGameResult = async (singleGameResult: gameResult) => {
     const updatedResults = [...results, singleGameResult];
-    setResults(updatedResults);
-    // const savedResults = await localforage.setItem(
-    //   'gameResults',
-    //   updatedResults
-    // );
-    await saveGameToCloud(
-      'jgvaldez@madisoncollege.edu',
-      'tca-clue',
-      new Date().toISOString(),
-      singleGameResult
+    const savedResults = await localforage.setItem(
+      'gameResults',
+      updatedResults
     );
+    // loadGameResults()
+    setResults(savedResults);
+    // await saveGameToCloud(
+    //   'jgvaldez@madisoncollege.edu',
+    //   'tca-clue',
+    //   new Date().toISOString(),
+    //   singleGameResult
+    // );
   };
 
   return (
