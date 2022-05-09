@@ -14,6 +14,7 @@ import {
   IonCard,
   IonCardTitle,
   IonCardContent,
+  IonInput,
 } from '@ionic/react';
 
 import './Home.css';
@@ -26,6 +27,7 @@ import { useState } from 'react';
 interface HomeProps {
   gameResults: gameResult[];
   uniquePlayers: string[];
+  emailAddress: string;
 }
 
 const calculateLeaderBoard = (p: string[], r: gameResult[]) => {
@@ -51,7 +53,11 @@ const calculateLeaderBoard = (p: string[], r: gameResult[]) => {
   return lb;
 };
 
-const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
+const Home: React.FC<HomeProps> = ({
+  gameResults,
+  uniquePlayers,
+  emailAddress,
+}) => {
   const [modal, setModal] = useState({ isOpen: false });
 
   return (
@@ -72,18 +78,20 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
             </IonToolbar>
           </IonHeader> */}
 
-          <IonCard color='plum'>
-            <IonButton
-              fill='outline'
-              expand='block'
-              className='ion-text-center, ion-padding'
-              color='success'
-              routerLink='/setup'
-            >
-              Setup New Game
-            </IonButton>
-            <br></br>
-            <IonButton
+          {emailAddress.length > 0 ? (
+            <>
+              <IonCard color='plum'>
+                <IonButton
+                  fill='outline'
+                  expand='block'
+                  className='ion-text-center, ion-padding'
+                  color='success'
+                  routerLink='/setup'
+                >
+                  Setup New Game
+                </IonButton>
+                <br></br>
+                {/* <IonButton
               fill='outline'
               expand='block'
               className='ion-text-center, ion-padding'
@@ -91,51 +99,62 @@ const Home: React.FC<HomeProps> = ({ gameResults, uniquePlayers }) => {
               routerLink='/play'
             >
               Go To Gameboard
-            </IonButton>
-            <br></br>
-          </IonCard>
-          <IonCard color='plum'>
-            <IonCardHeader>
-              <IonCardTitle className='ion-text-center'>Winners</IonCardTitle>
-            </IonCardHeader>
+            </IonButton> */}
+                <br></br>
+              </IonCard>
+              <IonCard color='plum'>
+                <IonCardHeader>
+                  <IonCardTitle className='ion-text-center'>
+                    Winners
+                  </IonCardTitle>
+                </IonCardHeader>
 
-            <IonGrid>
-              <IonRow>
-                <IonCol>Name: </IonCol>
-                <IonCol> Wins:</IonCol>
-              </IonRow>
-              {calculateLeaderBoard(uniquePlayers, gameResults)
-                .filter((x) => x.wins)
-                .map((x) => (
+                <IonGrid>
                   <IonRow>
-                    <IonCol>{x.name}</IonCol>
-                    <IonCol> {x.wins}</IonCol>
+                    <IonCol>Name: </IonCol>
+                    <IonCol> Wins:</IonCol>
                   </IonRow>
-                ))}
-            </IonGrid>
-          </IonCard>
-          <IonCard color='plum'>
-            <IonCardContent>
-              <IonCardTitle color='white' className='ion-text-center'>
-                More Stats
-              </IonCardTitle>
-              <br></br>
-              <MyModal
-                isOpen={modal.isOpen}
-                onClose={() => setModal({ isOpen: false })}
-                gameResults={gameResults}
-                uniquePlayers={getUniquePlayers(gameResults)}
-              />
-              <IonButton
-                fill='outline'
-                color='success'
-                expand='block'
-                onClick={() => setModal({ isOpen: true })}
-              >
-                Game Stats
-              </IonButton>
-            </IonCardContent>
-          </IonCard>
+                  {calculateLeaderBoard(uniquePlayers, gameResults)
+                    .filter((x) => x.wins)
+                    .map((x) => (
+                      <IonRow>
+                        <IonCol>{x.name}</IonCol>
+                        <IonCol> {x.wins}</IonCol>
+                      </IonRow>
+                    ))}
+                </IonGrid>
+              </IonCard>
+              <IonCard color='plum'>
+                <IonCardContent>
+                  <IonCardTitle color='white' className='ion-text-center'>
+                    More Stats
+                  </IonCardTitle>
+                  <br></br>
+                  <MyModal
+                    isOpen={modal.isOpen}
+                    onClose={() => setModal({ isOpen: false })}
+                    gameResults={gameResults}
+                    uniquePlayers={getUniquePlayers(gameResults)}
+                  />
+                  <IonButton
+                    fill='outline'
+                    color='success'
+                    expand='block'
+                    onClick={() => setModal({ isOpen: true })}
+                  >
+                    Game Stats
+                  </IonButton>
+                </IonCardContent>
+              </IonCard>
+            </>
+          ) : (
+            <>
+              <IonCard>
+                <IonInput placeholder='enter your email address'></IonInput>
+                <IonButton>Save</IonButton>
+              </IonCard>
+            </>
+          )}
         </IonContent>
       </IonApp>
     </IonPage>

@@ -28,6 +28,7 @@ import MakeGuess from './components/MakeGuess';
 import { useEffect, useState } from 'react';
 import Modal from './components/Modal';
 import localforage from 'localforage';
+import { saveGameToCloud, loadGamesFromCloud } from './TcaCloudApi';
 
 setupIonicReact();
 
@@ -69,10 +70,21 @@ const App: React.FC = () => {
     players: [],
   });
 
+  const [emailAddress, setEmailAddress] = useState('');
+
   const addGameResult = async (singleGameResult: gameResult) => {
     const updatedResults = [...results, singleGameResult];
-    await localforage.setItem('gameResults', updatedResults);
-    loadGameResults();
+    setResults(updatedResults);
+    // const savedResults = await localforage.setItem(
+    //   'gameResults',
+    //   updatedResults
+    // );
+    await saveGameToCloud(
+      'jgvaldez@madisoncollege.edu',
+      'tca-clue',
+      new Date().toISOString(),
+      singleGameResult
+    );
   };
 
   return (
@@ -111,6 +123,7 @@ const App: React.FC = () => {
             <Home
               gameResults={results}
               uniquePlayers={getUniquePlayers(results)}
+              emailAddress={emailAddress}
             />
           </Route>
           <Route exact path='/'>
