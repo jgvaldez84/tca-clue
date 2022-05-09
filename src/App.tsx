@@ -29,6 +29,7 @@ import { useEffect, useState } from 'react';
 import Modal from './components/Modal';
 import localforage from 'localforage';
 import { saveGameToCloud, loadGamesFromCloud } from './TcaCloudApi';
+import { cloud } from 'ionicons/icons';
 
 setupIonicReact();
 
@@ -59,11 +60,11 @@ const App: React.FC = () => {
 
       if (emailAddress.length > 0) {
         const r = await localforage.getItem<gameResult[]>('gameResults');
-        // const r = await loadGameResults(
-        //   emailAddress,
-        //   'tca-clue');
+
+        const cloudData = await loadGamesFromCloud(emailAddress, 'tca-clue');
 
         setResults(r ?? []);
+        setResults(cloudData ?? []);
       }
     } catch (err) {
       console.error(err);
@@ -92,18 +93,19 @@ const App: React.FC = () => {
 
   const addGameResult = async (singleGameResult: gameResult) => {
     const updatedResults = [...results, singleGameResult];
+
     const savedResults = await localforage.setItem(
       'gameResults',
       updatedResults
     );
-    // loadGameResults()
     setResults(savedResults);
-    // await saveGameToCloud(
-    //   'jgvaldez@madisoncollege.edu',
-    //   'tca-clue',
-    //   new Date().toISOString(),
-    //   singleGameResult
-    // );
+
+    await saveGameToCloud(
+      emailAddress,
+      'tca-clue',
+      new Date().toISOString(),
+      singleGameResult
+    );
   };
 
   return (
