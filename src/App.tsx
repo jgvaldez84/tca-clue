@@ -72,6 +72,13 @@ const App: React.FC = () => {
 
   const [emailAddress, setEmailAddress] = useState('');
 
+  const updateEmailAddress = async (newEmailAddress: string) => {
+    // Update emailAddress state, after saving it to local storage.
+    setEmailAddress(
+      (await localforage.setItem('emailAddress', newEmailAddress)) ?? ''
+    );
+  };
+
   const addGameResult = async (singleGameResult: gameResult) => {
     const updatedResults = [...results, singleGameResult];
     setResults(updatedResults);
@@ -100,8 +107,8 @@ const App: React.FC = () => {
           </Route>
           <Route exact path='/modal'>
             <Modal
-              isOpen={undefined}
-              onClose={undefined}
+              isOpen={true}
+              onClose={true}
               gameResults={[]}
               uniquePlayers={[]}
             />
@@ -124,6 +131,7 @@ const App: React.FC = () => {
               gameResults={results}
               uniquePlayers={getUniquePlayers(results)}
               emailAddress={emailAddress}
+              updateEmailAddress={updateEmailAddress}
             />
           </Route>
           <Route exact path='/'>

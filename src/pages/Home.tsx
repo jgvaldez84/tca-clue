@@ -15,6 +15,8 @@ import {
   IonCardTitle,
   IonCardContent,
   IonInput,
+  IonItem,
+  IonText,
 } from '@ionic/react';
 
 import './Home.css';
@@ -28,6 +30,7 @@ interface HomeProps {
   gameResults: gameResult[];
   uniquePlayers: string[];
   emailAddress: string;
+  updateEmailAddress: (e: string) => void;
 }
 
 const calculateLeaderBoard = (p: string[], r: gameResult[]) => {
@@ -57,9 +60,11 @@ const Home: React.FC<HomeProps> = ({
   gameResults,
   uniquePlayers,
   emailAddress,
+  updateEmailAddress,
 }) => {
   const [modal, setModal] = useState({ isOpen: false });
-
+  const [emailAddressForEditing, setEmailAddressForEditing] =
+    useState(emailAddress);
   return (
     <IonPage>
       <IonApp>
@@ -81,6 +86,12 @@ const Home: React.FC<HomeProps> = ({
           {emailAddress.length > 0 ? (
             <>
               <IonCard color='plum'>
+                <IonCardContent>
+                  <IonText color='success'>
+                    Currently logged in as:<br></br>
+                    {emailAddress}
+                  </IonText>
+                </IonCardContent>
                 <IonButton
                   fill='outline'
                   expand='block'
@@ -130,18 +141,19 @@ const Home: React.FC<HomeProps> = ({
                     More Stats
                   </IonCardTitle>
                   <br></br>
-                  <MyModal
-                    isOpen={modal.isOpen}
-                    onClose={() => setModal({ isOpen: false })}
-                    gameResults={gameResults}
-                    uniquePlayers={getUniquePlayers(gameResults)}
-                  />
+
                   <IonButton
                     fill='outline'
                     color='success'
                     expand='block'
                     onClick={() => setModal({ isOpen: true })}
                   >
+                    <MyModal
+                      isOpen={modal.isOpen}
+                      onClose={() => setModal({ isOpen: false })}
+                      gameResults={gameResults}
+                      uniquePlayers={getUniquePlayers(gameResults)}
+                    />
                     Game Stats
                   </IonButton>
                 </IonCardContent>
@@ -149,9 +161,32 @@ const Home: React.FC<HomeProps> = ({
             </>
           ) : (
             <>
-              <IonCard>
-                <IonInput placeholder='enter your email address'></IonInput>
-                <IonButton>Save</IonButton>
+              <IonCard color='plum'>
+                <IonText class='ion-text-center' color='success'>
+                  <h3>To begin, enter your email address:</h3>
+                </IonText>
+                <IonInput
+                  class='ion-text-center'
+                  color='white'
+                  value={emailAddressForEditing}
+                  placeholder='enteryour@emailaddress.com'
+                  onIonChange={(e) =>
+                    setEmailAddressForEditing(e.detail.value ?? '')
+                  }
+                ></IonInput>
+                <br></br>
+                <br></br>
+
+                <IonButton
+                  fill='outline'
+                  color='success'
+                  expand='block'
+                  onClick={() => updateEmailAddress(emailAddressForEditing)}
+                >
+                  Begin saving your stats
+                </IonButton>
+                <br></br>
+                <br></br>
               </IonCard>
             </>
           )}
