@@ -17,7 +17,7 @@ import {
   IonIcon,
   IonToast,
 } from '@ionic/react';
-
+import { trash } from 'ionicons/icons';
 import { arrowBackSharp, lockOpenSharp } from 'ionicons/icons';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
@@ -91,6 +91,11 @@ const SetupGame: React.FC<SetGameProps> = ({
     // clear out the input control.
     setNewPlayerName('');
   };
+  const deletePlayer = (name: any) => {
+    setSortedPlayers(
+      sortedPlayers.filter((uniquePlayers) => uniquePlayers.name !== name)
+    );
+  };
   const startGame = () => {
     if (sortedPlayers.length < 3) {
       setNotEnough(true);
@@ -155,6 +160,9 @@ const SetupGame: React.FC<SetGameProps> = ({
                     checked={x.checked}
                     onIonChange={(e) => togglePlayerChecked(x)}
                   />
+                  <IonButton onClick={deletePlayer}>
+                    <IonIcon icon={trash}></IonIcon>
+                  </IonButton>
                 </IonItem>
               ))}
             </IonCardContent>
