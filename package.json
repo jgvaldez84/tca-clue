@@ -2,6 +2,7 @@
   "name": "tca-clue",
   "version": "0.0.1",
   "private": true,
+  "homepage": "https://jgvaldez84.github.io/tca-clue",
   "dependencies": {
     "@aws-sdk/util-dynamodb": "^3.81.0",
     "@capacitor/app": "1.1.0",
