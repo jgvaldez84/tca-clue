@@ -22,8 +22,7 @@ import {
 
 import './Home.css';
 import clue from '../components/clue.jpeg';
-import { gameResult, getUniquePlayers } from '../App';
-import MyModal from '../components/Modal';
+import { gameResult } from '../App';
 
 import { useState } from 'react';
 

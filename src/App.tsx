@@ -26,10 +26,9 @@ import PlayGame from './pages/PlayGame';
 import MakeGuess from './components/MakeGuess';
 
 import { useEffect, useState } from 'react';
-import Modal from './components/Modal';
+
 import localforage from 'localforage';
 import { saveGameToCloud, loadGamesFromCloud } from './TcaCloudApi';
-import { cloud } from 'ionicons/icons';
 
 setupIonicReact();
 
@@ -53,6 +52,7 @@ export const getUniquePlayers = (results: gameResult[]) => [
 ];
 
 const App: React.FC = () => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const loadGameResults = async () => {
     try {
       const e = await localforage.getItem<string>('emailAddress');
@@ -119,14 +119,7 @@ const App: React.FC = () => {
               addGameResult={addGameResult}
             />
           </Route>
-          <Route exact path='/modal'>
-            <Modal
-              isOpen={undefined}
-              onClose={undefined}
-              gameResults={[]}
-              uniquePlayers={[]}
-            />
-          </Route>
+
           <Route exact path='/play'>
             <PlayGame
               currentGame={currentGame}

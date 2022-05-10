@@ -113,6 +113,4 @@ const MyModal: React.FC<ModalProps> = ({
   );
 };
 
-/* Using with IonModal Component */
-
 export default MyModal;
